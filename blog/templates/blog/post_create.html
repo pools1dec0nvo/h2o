@@ -1,0 +1,45 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}New Post — h2o{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="post-create">
+  <div class="post-create__header">
+    <a href="{% url 'blog:post_list' %}" class="post-detail__back">← Blog</a>
+    <h1>New post</h1>
+  </div>
+
+  <form method="post" class="post-form">
+    {% csrf_token %}
+
+    <div class="post-form__field {% if form.title.errors %}post-form__field--error{% endif %}">
+      <label for="{{ form.title.id_for_label }}">Title</label>
+      {{ form.title }}
+      {% for error in form.title.errors %}<span class="post-form__error">{{ error }}</span>{% endfor %}
+    </div>
+
+    <div class="post-form__field">
+      <label>Departments <span class="post-form__hint">(optional)</span></label>
+      <div class="post-form__dept-checks">
+        {{ form.departments }}
+      </div>
+    </div>
+
+    <div class="post-form__field {% if form.content.errors %}post-form__field--error{% endif %}">
+      <label for="{{ form.content.id_for_label }}">Content <span class="post-form__hint">(Markdown)</span></label>
+      {{ form.content }}
+      {% for error in form.content.errors %}<span class="post-form__error">{{ error }}</span>{% endfor %}
+    </div>
+
+    <div class="post-form__actions">
+      <a href="{% url 'blog:post_list' %}" class="post-form__cancel">Cancel</a>
+      <button type="submit" class="post-form__submit">Publish</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

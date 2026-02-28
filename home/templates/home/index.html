@@ -1,0 +1,354 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}h2o — Disaster-ready water storage{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="hero" id="hero" style="background-image: url('{% static 'home/img/Untitled-1.jpg' %}');">
+  <div class="hero__overlay"></div>
+  <div class="hero__inner">
+    <div class="hero__title-pill">
+      <p class="hero__subtitle">ElectroDay 2025/2026, IST</p>
+      <h1 class="hero__title">Disaster-ready water<br>storage system for cities</h1>
+    </div>
+    <div class="hero__actions">
+      <a href="/blog/" class="btn btn--ghost">Read our blog!</a>
+      <a href="#who" class="btn btn--solid">Meet the team</a>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <span class="hero__scroll-label">Scroll down</span>
+    <svg class="hero__scroll-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </div>
+</section>
+
+<section class="section" id="what">
+  <div class="section__inner section__inner--split">
+
+    <div class="section__text">
+      <span class="section__eyebrow">What are we talking about?</span>
+      <h2 class="section__title">A modular, automated backup water network for cities!</h2>
+
+      <p class="section__body">
+        A <strong>redundant</strong>, <strong>point-to-point</strong> system that stores and distributes
+        <strong>potable water</strong> in urban areas when the public network is disrupted by disaster,
+        collapse, or contamination.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature">
+          <span class="feature__icon" aria-hidden="true">
+            <!-- modular / nodes -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 5h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="feature__text">
+            <strong>Modular + scalable</strong>
+            <span>Deploy nodes where the city needs redundancy most.</span>
+          </div>
+        </div>
+
+        <div class="feature">
+          <span class="feature__icon" aria-hidden="true">
+            <!-- automation -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 6v6l4 2M4.5 12a7.5 7.5 0 1 0 15 0 7.5 7.5 0 0 0-15 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="feature__text">
+            <strong>Automated operation</strong>
+            <span>Controlled distribution with minimal on-site intervention.</span>
+          </div>
+        </div>
+
+        <div class="feature">
+          <span class="feature__icon" aria-hidden="true">
+            <!-- web portal -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4V5Zm0 4h16M9 19v-4M15 19v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="feature__text">
+            <strong>Smart web portal</strong>
+            <span>Real-time monitoring with role-based permissions.</span>
+          </div>
+        </div>
+
+        <div class="feature">
+          <span class="feature__icon" aria-hidden="true">
+            <!-- emergency switch -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v6M7.5 4.5 12 8l4.5-3.5M6 13a6 6 0 1 0 12 0c0-1.4-.5-2.7-1.3-3.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="feature__text">
+            <strong>Emergency activation</strong>
+            <span>Temporary exceptional mode or broad public access during catastrophe.</span>
+          </div>
+        </div>
+
+        <div class="feature">
+          <span class="feature__icon" aria-hidden="true">
+            <!-- firefighters / civil protection -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3 2 5 5 5 8 0 4-3 7-5 10-2-3-5-6-5-10 0-3 2-6 5-8Zm-4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="feature__text">
+            <strong>Support in normal times</strong>
+            <span>Helps firefighters and civil protection in hard-to-reach areas.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section__cta-row">
+        <a class="btn btn--solid" href="#how">See how it works</a>
+        <a class="btn btn--outline-dark" href="#enquadramento">Read the context</a>
+      </div>
+    </div>
+
+    <div class="section__visual">
+      <div class="visual-callout">
+        <div class="visual-callout__arrow" aria-hidden="true"></div>
+
+        <div class="visual-card" role="img" aria-label="Modular water storage container">
+          <img class="visual-card__img" src="{% static 'home/img/container.png' %}" alt="Modular water storage container">
+
+          <div class="visual-badges" aria-hidden="true">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 6 6 9 6 12a6 6 0 1 0 12 0c0-3-2-6-6-10Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Potable
+            </span>
+            <span class="badge">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 6v6l4 2M4.5 12a7.5 7.5 0 1 0 15 0 7.5 7.5 0 0 0-15 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              72h-ready
+            </span>
+            <span class="badge">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4Zm0 6v7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Secure access
+            </span>
+          </div>
+        </div>
+
+        <div class="visual-caption">
+          <strong>Redundant nodes</strong> keep water available even if part of the city network fails.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Why? ──────────────────────────────────────────────────── -->
+<section class="section" id="why">
+  <div class="section__inner section__inner--split">
+    
+    <div class="section__text">
+      <span class="section__eyebrow">Why this?</span>
+      <h2 class="section__title">Urban water systems are fragile in times of crisis</h2>
+      
+      <p class="section__body">
+        Modern cities rely on centralized water infrastructure that can fail rapidly under stress. 
+        Geopolitical conflict, seismic activity, climate change, and biological contamination events 
+        increasingly threaten the reliability of potable water distribution.
+      </p>
+
+      <p class="section__body">
+        In emergency scenarios, access to safe drinking water within the first <strong>72 hours</strong> 
+        is critical for public health, safety, and social stability. Yet recent global events show that 
+        urban systems are not prepared for disruption at this scale.
+      </p>
+    </div>
+
+    <div class="section__visual">
+      
+      <div class="stat-card">
+        <span class="stat-card__number">Conflict</span>
+        <span class="stat-card__label">
+          Wars and sabotage can disable treatment plants and pipelines — seen in Ukraine (2022–present) 
+          and the Siege of Sarajevo
+        </span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-card__number">Seismic Risk</span>
+        <span class="stat-card__label">
+          Earthquakes can collapse underground networks — Kobe (1995) and Christchurch (2011) left 
+          millions without water
+        </span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-card__number">Extreme Drought</span>
+        <span class="stat-card__label">
+          Climate-driven water scarcity has pushed cities like Cape Town, São Paulo, and California 
+          to the brink of supply collapse
+        </span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-card__number">Contamination</span>
+        <span class="stat-card__label">
+          Biological and chemical crises — Flint (lead contamination) and Walkerton (E. coli outbreak) — 
+          show how quickly public water becomes unsafe
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── When? ─────────────────────────────────────────────────── -->
+<section class="section section--alt" id="when">
+  <div class="section__inner">
+    <span class="section__eyebrow">When?</span>
+    <h2 class="section__title section__title--center">Always on. Ready when it matters.</h2>
+    <p class="section__lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <div class="timeline">
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__body">
+          <h3>Continuous monitoring</h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__body">
+          <h3>Automated top-up</h3>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__body">
+          <h3>Emergency isolation</h3>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum lorem ipsum.</p>
+        </div>
+      </div>
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__body">
+          <h3>Recovery & handoff</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Who? ──────────────────────────────────────────────────── -->
+<section class="section" id="who">
+  <div class="section__inner">
+    <span class="section__eyebrow">Who?</span>
+    <h2 class="section__title section__title--center">Meet the team</h2>
+    <p class="section__lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <div class="team-grid">
+      {% for member in team %}
+      <div class="team-card">
+        {% if member.profile_photo %}
+          <img class="team-card__avatar" src="{{ member.profile_photo.url }}" alt="{{ member.get_full_name }}">
+        {% else %}
+          <div class="team-card__avatar team-card__avatar--placeholder"></div>
+        {% endif %}
+        <div class="team-card__right">
+          <p class="team-card__name">{{ member.get_full_name }}</p>
+          {% if member.dept_main %}
+            <span class="team-card__dept-pill" style="background-color: {{ member.get_dept_main_color }};">
+              {{ member.get_dept_main_display|upper }}
+            </span>
+          {% endif %}
+          {% with others=member.dept_other_entries.all %}
+            {% if others %}
+              <div class="team-card__also">
+                <span class="team-card__also-label">Also in:</span>
+                {% for entry in others %}
+                  <span class="team-card__dept-pill" style="background-color: {{ entry.get_dept_color }};">
+                    {{ entry.get_dept_display|upper }}
+                  </span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+          <div class="team-card__links">
+            {% if member.email %}
+              <a class="team-card__link-icon" href="mailto:{{ member.email }}" title="Email {{ member.get_full_name }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <polyline points="2,4 12,13 22,4"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if member.linkedin_url %}
+              <a class="team-card__link-icon" href="{{ member.linkedin_url }}" target="_blank" rel="noopener noreferrer" title="{{ member.get_full_name }} on LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452H17.1v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.764V9.333h3.208v1.481h.046c.447-.847 1.539-1.739 3.168-1.739 3.386 0 4.011 2.23 4.011 5.13v6.247zM5.337 7.433a1.862 1.862 0 1 1 0-3.724 1.862 1.862 0 0 1 0 3.724zm1.604 13.019H3.733V9.333h3.208v11.119zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.226.792 24 1.771 24h20.451C23.205 24 24 23.226 24 22.271V1.729C24 .774 23.205 0 22.225 0z"/>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="section__lead" style="grid-column: 1 / -1;">No team members yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── Blog teaser ────────────────────────────────────────────── -->
+<section class="section section--alt" id="blog-teaser">
+  <div class="section__inner">
+    <span class="section__eyebrow">Blog</span>
+    <h2 class="section__title section__title--center">Latest from the project</h2>
+    <div class="post-grid">
+      {% for post in recent_posts %}
+      <article class="post-card">
+        <div class="post-card__body">
+          <span class="post-card__date">{{ post.created_at|date:"M j, Y" }}</span>
+          <h3><a href="{% url 'blog:post_list' %}">{{ post.title }}</a></h3>
+          <p>{{ post.content|truncatewords:20 }}</p>
+          <a href="{% url 'blog:post_list' %}" class="post-card__link">Read more →</a>
+        </div>
+      </article>
+      {% empty %}
+      <p class="section__lead" style="grid-column: 1 / -1;">No posts yet — check back soon.</p>
+      {% endfor %}
+    </div>
+    {% if recent_posts %}
+    <div class="section__cta">
+      <a href="/blog/" class="btn btn--outline-dark">View all posts</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Smooth-scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section, .stat-card, .timeline__item, .team-card, .post-card')
+    .forEach(el => observer.observe(el));
+</script>
+{% endblock %}

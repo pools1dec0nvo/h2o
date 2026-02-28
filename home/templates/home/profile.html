@@ -1,0 +1,189 @@
+{% extends "home/auth_base.html" %}
+{% load static %}
+
+{% block title %}Edit Profile — h2o{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/auth.css' %}">
+<style>
+  .auth-card { max-width: 520px; }
+
+  .profile-avatar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .profile-avatar__img,
+  .profile-avatar__placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #94a3b8, #64748b);
+  }
+
+  .profile-avatar__name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .profile-avatar__username {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  .profile-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #94a3b8;
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .profile-section-title:first-of-type { margin-top: 0; }
+
+  .auth-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .auth-card__success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .auth-form__field input[type="file"] {
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .auth-form__submit--secondary {
+    background: #334155;
+  }
+
+  .auth-form__submit--secondary:hover {
+    background: #475569;
+  }
+</style>
+{% endblock %}
+
+{% block auth_content %}
+<div class="profile-avatar">
+  {% if request.user.profile_photo %}
+    <img class="profile-avatar__img" src="{{ request.user.profile_photo.url }}" alt="">
+  {% else %}
+    <div class="profile-avatar__placeholder"></div>
+  {% endif %}
+  <div>
+    <div class="profile-avatar__name">{{ request.user.get_full_name|default:request.user.username }}</div>
+    <div class="profile-avatar__username">@{{ request.user.username }}</div>
+  </div>
+</div>
+
+<!-- Profile info form -->
+<p class="profile-section-title">Profile</p>
+
+{% if profile_saved %}
+<div class="auth-card__success">Profile updated successfully.</div>
+{% endif %}
+
+{% if profile_form.non_field_errors %}
+<div class="auth-card__error">{{ profile_form.non_field_errors }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" class="auth-form">
+  {% csrf_token %}
+
+  <div class="auth-form__row">
+    <div class="auth-form__field {% if profile_form.first_name.errors %}auth-form__field--error{% endif %}">
+      <label for="{{ profile_form.first_name.id_for_label }}">First name</label>
+      {{ profile_form.first_name }}
+      {% if profile_form.first_name.errors %}
+        <span class="auth-form__field-error">{{ profile_form.first_name.errors.0 }}</span>
+      {% endif %}
+    </div>
+    <div class="auth-form__field {% if profile_form.last_name.errors %}auth-form__field--error{% endif %}">
+      <label for="{{ profile_form.last_name.id_for_label }}">Last name</label>
+      {{ profile_form.last_name }}
+      {% if profile_form.last_name.errors %}
+        <span class="auth-form__field-error">{{ profile_form.last_name.errors.0 }}</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="auth-form__field {% if profile_form.email.errors %}auth-form__field--error{% endif %}">
+    <label for="{{ profile_form.email.id_for_label }}">Email</label>
+    {{ profile_form.email }}
+    {% if profile_form.email.errors %}
+      <span class="auth-form__field-error">{{ profile_form.email.errors.0 }}</span>
+    {% endif %}
+  </div>
+
+  <div class="auth-form__field {% if profile_form.linkedin_url.errors %}auth-form__field--error{% endif %}">
+    <label for="{{ profile_form.linkedin_url.id_for_label }}">LinkedIn URL</label>
+    {{ profile_form.linkedin_url }}
+    {% if profile_form.linkedin_url.errors %}
+      <span class="auth-form__field-error">{{ profile_form.linkedin_url.errors.0 }}</span>
+    {% endif %}
+  </div>
+
+  <div class="auth-form__field">
+    <label for="{{ profile_form.profile_photo.id_for_label }}">Profile photo</label>
+    {{ profile_form.profile_photo }}
+  </div>
+
+  <button type="submit" name="save_profile" class="auth-form__submit auth-form__submit--secondary">
+    Save profile
+  </button>
+</form>
+
+<!-- Change password form -->
+<p class="profile-section-title">Change password</p>
+
+{% if password_saved %}
+<div class="auth-card__success">Password changed successfully.</div>
+{% endif %}
+
+{% if password_form.non_field_errors %}
+<div class="auth-card__error">{{ password_form.non_field_errors }}</div>
+{% endif %}
+
+<form method="post" class="auth-form">
+  {% csrf_token %}
+
+  <div class="auth-form__field {% if password_form.new_password1.errors %}auth-form__field--error{% endif %}">
+    <label for="{{ password_form.new_password1.id_for_label }}">New password</label>
+    {{ password_form.new_password1 }}
+    {% if password_form.new_password1.errors %}
+      <span class="auth-form__field-error">{{ password_form.new_password1.errors.0 }}</span>
+    {% endif %}
+  </div>
+
+  <div class="auth-form__field {% if password_form.new_password2.errors %}auth-form__field--error{% endif %}">
+    <label for="{{ password_form.new_password2.id_for_label }}">Confirm new password</label>
+    {{ password_form.new_password2 }}
+    {% if password_form.new_password2.errors %}
+      <span class="auth-form__field-error">{{ password_form.new_password2.errors.0 }}</span>
+    {% endif %}
+  </div>
+
+  <button type="submit" name="save_password" class="auth-form__submit auth-form__submit--secondary">
+    Change password
+  </button>
+</form>
+{% endblock %}

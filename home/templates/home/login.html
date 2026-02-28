@@ -1,0 +1,31 @@
+{% extends "home/auth_base.html" %}
+
+{% block title %}Log In — h2o{% endblock %}
+
+{% block auth_content %}
+<h1 class="auth-card__title">Log in</h1>
+
+{% if form.errors %}
+<div class="auth-card__error">Invalid username or password.</div>
+{% endif %}
+
+<form method="post" class="auth-form">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next }}">
+
+  <div class="auth-form__field">
+    <label for="{{ form.username.id_for_label }}">Username</label>
+    {{ form.username }}
+  </div>
+  <div class="auth-form__field">
+    <label for="{{ form.password.id_for_label }}">Password</label>
+    {{ form.password }}
+  </div>
+
+  <button type="submit" class="auth-form__submit">Log In</button>
+</form>
+
+<p class="auth-card__switch">
+  Don't have an account? <a href="{% url 'home:register' %}">Register</a>
+</p>
+{% endblock %}

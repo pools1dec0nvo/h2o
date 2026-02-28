@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+    <a href="/" class="auth-card__brand">h2o</a>
+    {% block auth_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

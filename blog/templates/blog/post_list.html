@@ -1,0 +1,44 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Blog — h2o{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="blog-page">
+  <div class="blog-page__header">
+    <h1>Blog</h1>
+    {% if user.is_authenticated and user.is_collab or user.is_authenticated and user.is_sys %}
+      <a href="{% url 'blog:post_create' %}" class="btn-new-post">+ New post</a>
+    {% endif %}
+  </div>
+
+  {% if rendered_posts %}
+    <div class="post-feed">
+      {% for item in rendered_posts %}
+      <article class="post-card">
+        <div class="post-card__meta">
+          <span class="post-card__author">{{ item.post.poster.get_full_name|default:item.post.poster.username }}</span>
+          <span class="post-card__sep">·</span>
+          <span class="post-card__date">{{ item.post.created_at|date:"N j, Y" }}</span>
+          {% for dept in item.post.dept_entries.all %}
+            <span class="post-card__dept-pill" style="background-color: {{ dept.get_dept_color }};">
+              {{ dept.get_dept_display_name|upper }}
+            </span>
+          {% endfor %}
+        </div>
+        <h2 class="post-card__title">{{ item.post.title }}</h2>
+        <div class="post-card__body prose">
+          {{ item.html_content }}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="blog-page__empty">No posts yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

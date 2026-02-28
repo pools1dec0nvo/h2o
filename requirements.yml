@@ -1,0 +1,56 @@
+name: pic
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # --- Python ---
+  - python=3.12
+
+  # --- Geospatial / DB native libs ---
+  - gdal
+  - libgdal
+  - libspatialindex
+  - postgresql
+  - psycopg2
+
+  # --- Python packages (pip) ---
+  - pip:
+      # Django core
+      - django==5.2.11
+      - djangorestframework==3.16.1
+      - djangorestframework-gis==1.2.0
+      - drf-spectacular==0.29.0
+
+      # Config & middleware
+      - django-environ==0.13.0
+      - django-cors-headers==4.9.0
+      - django-filter==25.2
+      - django-extensions==4.1
+
+      # Async tasks
+      - celery==5.6.2
+      - redis==7.2.1
+      - django-celery-beat==2.8.1
+      - django-celery-results==2.6.0
+
+      # Markdown
+      - markdown==3.10.2
+
+      # Media & serving
+      - Pillow==12.1.1
+      - whitenoise==6.12.0
+      - gunicorn==25.1.0
+
+      # Dev tools
+      - ipython==9.10.0
+      - ipdb==0.13.13
+      - black==26.1.0
+      - ruff==0.15.4
+      - mypy==1.19.1
+      - django-stubs==5.2.9
+
+      # Testing
+      - pytest==9.0.2
+      - pytest-django==4.12.0
+      - factory-boy==3.3.3
+      - coverage==7.13.4

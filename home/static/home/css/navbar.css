@@ -1,0 +1,93 @@
+/* ── Navbar ─────────────────────────────────────────────────── */
+.h2o-nav {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  height: 52px;
+  background: rgba(248, 249, 250, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+
+/* Brand */
+.h2o-nav__brand {
+  text-decoration: none;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.h2o-nav__logo {
+  height: 34px;
+  width: 34px;
+  border-radius: 6px;
+  object-fit: cover;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+/* Centre links */
+.h2o-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.h2o-nav__links a {
+  color: #334155;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.h2o-nav__links a:hover {
+  opacity: 1;
+}
+
+/* User area */
+.h2o-nav__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.h2o-nav__username {
+  font-size: 14px;
+  color: #475569;
+  opacity: 0.9;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.h2o-nav__username:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Log In button */
+.h2o-nav__login {
+  flex-shrink: 0;
+  background: #334155;
+  color: #fff;
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 980px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.h2o-nav__login:hover {
+  background: #475569;
+}

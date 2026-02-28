@@ -1,0 +1,23 @@
+{% load static %}
+<nav class="h2o-nav">
+  <a href="/" class="h2o-nav__brand">
+    <img src="{% static 'home/img/favicon.jpg' %}" alt="h2o" class="h2o-nav__logo">
+  </a>
+
+  <ul class="h2o-nav__links">
+    <li><a href="/#what">What?</a></li>
+    <li><a href="/#why">Why?</a></li>
+    <li><a href="/#when">When?</a></li>
+    <li><a href="/#who">Who?</a></li>
+    <li><a href="/blog/">Blog</a></li>
+  </ul>
+
+  {% if user.is_authenticated %}
+    <div class="h2o-nav__user">
+      <a href="{% url 'home:profile' %}" class="h2o-nav__username">{{ user.get_full_name|default:user.username }}</a>
+      <a href="/logout/" class="h2o-nav__login">Log Out</a>
+    </div>
+  {% else %}
+    <a href="/login/" class="h2o-nav__login">Log In</a>
+  {% endif %}
+</nav>

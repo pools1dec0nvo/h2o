@@ -1,0 +1,257 @@
+/* ── Blog page ────────────────────────────────────────────────── */
+.blog-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.blog-page__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.blog-page__header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #1e293b;
+}
+
+.btn-new-post {
+  font-size: 14px;
+  font-weight: 500;
+  color: #22c55e;
+  text-decoration: none;
+}
+.btn-new-post:hover { text-decoration: underline; }
+
+.blog-page__empty {
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+/* ── Feed ────────────────────────────────────────────────────── */
+.post-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Post card ───────────────────────────────────────────────── */
+.post-card {
+  background: #f1f5f9;
+  border-radius: 16px;
+  padding: 36px 40px;
+}
+
+.post-card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.post-card__author {
+  font-weight: 600;
+  color: #475569;
+}
+
+.post-card__sep {
+  color: #cbd5e1;
+}
+
+.post-card__dept-pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.post-card__title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+/* ── Prose (rendered markdown) ───────────────────────────────── */
+.prose { line-height: 1.75; font-size: 15px; color: #334155; }
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  font-weight: 700; line-height: 1.2; margin: 1.6em 0 0.5em; letter-spacing: -0.2px; color: #1e293b;
+}
+.prose h1 { font-size: 1.5rem; }
+.prose h2 { font-size: 1.2rem; }
+.prose h3 { font-size: 1rem; }
+.prose p  { margin: 0 0 1em; }
+.prose ul, .prose ol { margin: 0 0 1em 1.4em; }
+.prose li { margin-bottom: 0.35em; }
+.prose a  { color: #22c55e; text-decoration: none; }
+.prose a:hover { text-decoration: underline; }
+.prose blockquote {
+  border-left: 3px solid #cbd5e1;
+  margin: 0 0 1em;
+  padding: 2px 0 2px 18px;
+  color: #64748b;
+  font-style: italic;
+}
+.prose code {
+  background: rgba(0,0,0,0.06);
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 0.87em;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+.prose pre {
+  background: #1e293b;
+  color: #f1f5f9;
+  border-radius: 10px;
+  padding: 18px 22px;
+  overflow-x: auto;
+  margin: 0 0 1.2em;
+}
+.prose pre code { background: none; padding: 0; color: inherit; font-size: 0.88em; }
+.prose img { max-width: 100%; border-radius: 8px; margin: 0.8em 0; }
+.prose hr { border: none; border-top: 1px solid #e2e8f0; margin: 1.6em 0; }
+.prose table { border-collapse: collapse; width: 100%; margin-bottom: 1em; font-size: 14px; }
+.prose th, .prose td { border: 1px solid #e2e8f0; padding: 7px 12px; text-align: left; }
+.prose th { background: rgba(0,0,0,0.03); font-weight: 600; }
+
+/* ── Post create form ────────────────────────────────────────── */
+.post-create {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.post-create__header { margin-bottom: 36px; }
+
+.post-create__header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-top: 12px;
+  color: #1e293b;
+}
+
+.post-detail__back {
+  display: inline-block;
+  font-size: 14px;
+  color: #22c55e;
+  text-decoration: none;
+  margin-bottom: 4px;
+}
+.post-detail__back:hover { text-decoration: underline; }
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.post-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.post-form__field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.post-form__hint { font-weight: 400; color: #94a3b8; }
+
+.post-form__field input[type="text"],
+.post-form__source {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+  resize: vertical;
+  color: #334155;
+  background: #fff;
+}
+
+.post-form__source {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 14px;
+  line-height: 1.65;
+  min-height: 480px;
+  background: #fafafa;
+}
+
+.post-form__field input:focus,
+.post-form__source:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
+}
+
+.post-form__field--error input,
+.post-form__field--error .post-form__source { border-color: #ef4444; }
+.post-form__error { font-size: 12px; color: #ef4444; }
+
+/* Department checkboxes */
+.post-form__dept-checks ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.post-form__dept-checks li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #334155;
+}
+
+.post-form__dept-checks input[type="checkbox"] {
+  accent-color: #22c55e;
+  width: 15px;
+  height: 15px;
+}
+
+.post-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+.post-form__cancel { font-size: 15px; color: #64748b; text-decoration: none; }
+.post-form__cancel:hover { color: #334155; }
+
+.post-form__submit {
+  background: #334155;
+  color: #fff;
+  border: none;
+  border-radius: 980px;
+  padding: 11px 28px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.post-form__submit:hover { background: #475569; }
