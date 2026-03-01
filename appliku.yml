@@ -1,0 +1,34 @@
+build_settings:
+  build_image: python-3.12
+  build_command: "pip install -r requirements.txt && python manage.py collectstatic --no-input"
+  container_port: 8000
+  environment_variables:
+    - name: SECRET_KEY
+      source: manual
+    - name: ALLOWED_HOSTS
+      source: manual
+    - name: DATABASE_URL
+      from_database:
+        name: db
+        property: connection_url
+    - name: DJANGO_SETTINGS_MODULE
+      value: "h2o.settings"
+
+services:
+  web:
+    command: gunicorn h2o.wsgi --bind 0.0.0.0:8000 --log-file -
+    scale: 1
+    mode: replicated
+
+  release:
+    command: python manage.py migrate
+
+databases:
+  db:
+    type: postgresql_17
+
+volumes:
+  media:
+    target: /app/media/
+    url: /media/
+    environment_variable: MEDIA_URL
