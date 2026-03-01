@@ -45,8 +45,8 @@ Markdown==3.10.2
 matplotlib-inline==0.2.1
 mypy==1.19.1
 mypy_extensions==1.1.0
-numpy @ file:///Users/runner/miniforge3/conda-bld/bld/rattler-build_numpy_1770098400/work/dist/numpy-2.4.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=034d6ba7f9b64546a2bcebd6b3a6d6a9bc390537e96050eb8df31f9c173f8a13
-packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1769093650/work
+numpy
+packaging
 parso==0.8.6
 pathspec==1.0.4
 pexpect==4.9.0
@@ -54,7 +54,6 @@ pillow==12.1.1
 platformdirs==4.9.2
 pluggy==1.6.0
 prompt_toolkit==3.0.52
-psycopg2 @ file:///Users/runner/miniforge3/conda-bld/psycopg2-split_1767372299268/work
 psycopg2-binary==2.9.11
 ptyprocess==0.7.0
 pure_eval==0.2.3
