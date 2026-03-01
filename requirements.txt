@@ -29,7 +29,6 @@ drf-spectacular==0.29.0
 executing==2.2.1
 factory_boy==3.3.3
 Faker==40.5.1
-GDAL @ file:///Users/runner/miniforge3/conda-bld/libgdal-core_1771391152196/work/build/swig/python
 gunicorn==25.1.0
 h11==0.16.0
 inflection==0.5.1
