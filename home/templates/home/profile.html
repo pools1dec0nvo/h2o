@@ -142,6 +142,14 @@
     {% endif %}
   </div>
 
+  <div class="auth-form__field {% if profile_form.phone_number.errors %}auth-form__field--error{% endif %}">
+    <label for="{{ profile_form.phone_number.id_for_label }}">Phone number</label>
+    {{ profile_form.phone_number }}
+    {% if profile_form.phone_number.errors %}
+      <span class="auth-form__field-error">{{ profile_form.phone_number.errors.0 }}</span>
+    {% endif %}
+  </div>
+
   <div class="auth-form__field">
     <label for="{{ profile_form.profile_photo.id_for_label }}">Profile photo</label>
     {{ profile_form.profile_photo }}
@@ -149,6 +157,27 @@
 
   <button type="submit" name="save_profile" class="auth-form__submit auth-form__submit--secondary">
     Save profile
+  </button>
+</form>
+
+<!-- Other departments form -->
+<p class="profile-section-title">Other departments</p>
+
+{% if dept_saved %}
+<div class="auth-card__success">Departments updated.</div>
+{% endif %}
+
+<form method="post" class="auth-form">
+  {% csrf_token %}
+  <div class="auth-form__field">
+    <label>Select your secondary departments</label>
+    {{ dept_form.departments }}
+    {% for error in dept_form.departments.errors %}
+      <span class="auth-form__field-error">{{ error }}</span>
+    {% endfor %}
+  </div>
+  <button type="submit" name="save_depts" class="auth-form__submit auth-form__submit--secondary">
+    Save departments
   </button>
 </form>
 

@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-{% block title %}New Post — h2o{% endblock %}
+{% block title %}{% if editing %}Edit Post{% else %}New Post{% endif %} — h2o{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
@@ -11,7 +11,7 @@
 <div class="post-create">
   <div class="post-create__header">
     <a href="{% url 'blog:post_list' %}" class="post-detail__back">← Blog</a>
-    <h1>New post</h1>
+    <h1>{% if editing %}Edit post{% else %}New post{% endif %}</h1>
   </div>
 
   <form method="post" class="post-form">
@@ -28,6 +28,7 @@
       <div class="post-form__dept-checks">
         {{ form.departments }}
       </div>
+      {% for error in form.departments.errors %}<span class="post-form__error">{{ error }}</span>{% endfor %}
     </div>
 
     <div class="post-form__field {% if form.content.errors %}post-form__field--error{% endif %}">
@@ -38,7 +39,7 @@
 
     <div class="post-form__actions">
       <a href="{% url 'blog:post_list' %}" class="post-form__cancel">Cancel</a>
-      <button type="submit" class="post-form__submit">Publish</button>
+      <button type="submit" class="post-form__submit">{% if editing %}Save changes{% else %}Publish{% endif %}</button>
     </div>
   </form>
 </div>

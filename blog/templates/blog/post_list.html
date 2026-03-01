@@ -16,29 +16,59 @@
     {% endif %}
   </div>
 
-  {% if rendered_posts %}
-    <div class="post-feed">
-      {% for item in rendered_posts %}
-      <article class="post-card">
-        <div class="post-card__meta">
-          <span class="post-card__author">{{ item.post.poster.get_full_name|default:item.post.poster.username }}</span>
-          <span class="post-card__sep">·</span>
-          <span class="post-card__date">{{ item.post.created_at|date:"N j, Y" }}</span>
-          {% for dept in item.post.dept_entries.all %}
-            <span class="post-card__dept-pill" style="background-color: {{ dept.get_dept_color }};">
-              {{ dept.get_dept_display_name|upper }}
-            </span>
+  <div class="blog-layout">
+    <!-- Sidebar filter -->
+    <aside class="blog-sidebar">
+      <div class="blog-filter">
+        <span class="blog-filter__label">Department</span>
+        <div class="blog-filter__pills">
+          <a href="?" class="blog-filter__pill {% if not active_dept %}blog-filter__pill--active{% endif %}">All</a>
+          {% for dept in all_depts %}
+            <a href="?dept={{ dept.slug }}"
+               class="blog-filter__pill {% if active_dept == dept.slug %}blog-filter__pill--active{% endif %}"
+               style="--pill-color: {{ dept.color }};">
+              {{ dept.short_name }}
+            </a>
           {% endfor %}
         </div>
-        <h2 class="post-card__title">{{ item.post.title }}</h2>
-        <div class="post-card__body prose">
-          {{ item.html_content }}
+      </div>
+    </aside>
+
+    <!-- Post feed -->
+    <div class="blog-main">
+      {% if rendered_posts %}
+        <div class="post-feed">
+          {% for item in rendered_posts %}
+          <article class="post-card" id="post-{{ item.post.pk }}">
+            <div class="post-card__meta">
+              <span class="post-card__author">{{ item.post.poster.get_full_name|default:item.post.poster.username }}</span>
+              <span class="post-card__sep">·</span>
+              <span class="post-card__date">{{ item.post.created_at|date:"N j, Y" }}</span>
+              {% for dept in item.post.dept_entries.all %}
+                <span class="post-card__dept-pill" style="background-color: {{ dept.dept.color }};">
+                  {{ dept.dept.short_name|upper }}
+                </span>
+              {% endfor %}
+              {% if user.is_authenticated %}
+                {% if user.is_sys or user.is_collab and item.post.poster == user %}
+                <span class="post-card__actions">
+                  <a href="{% url 'blog:post_edit' item.post.pk %}" class="post-card__action-link">Edit</a>
+                  <a href="{% url 'blog:post_delete' item.post.pk %}" class="post-card__action-link post-card__action-link--delete">Delete</a>
+                </span>
+                {% endif %}
+              {% endif %}
+            </div>
+            <h2 class="post-card__title">{{ item.post.title }}</h2>
+            <div class="post-card__body prose">
+              {{ item.html_content }}
+            </div>
+          </article>
+          {% endfor %}
         </div>
-      </article>
-      {% endfor %}
+      {% else %}
+        <p class="blog-page__empty">No posts found.</p>
+      {% endif %}
     </div>
-  {% else %}
-    <p class="blog-page__empty">No posts yet.</p>
-  {% endif %}
+  </div>
 </div>
 {% endblock %}

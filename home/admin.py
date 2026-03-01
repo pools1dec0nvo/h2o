@@ -9,6 +9,7 @@ class UserDeptOtherInline(admin.TabularInline):
     model = UserDeptOther
     extra = 1
     max_num = 2
+    autocomplete_fields = ["dept"]
 
     def clean(self):
         count = sum(1 for f in self.forms if f.cleaned_data and not f.cleaned_data.get("DELETE"))
@@ -19,15 +20,17 @@ class UserDeptOtherInline(admin.TabularInline):
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     inlines = [UserDeptOtherInline]
+    autocomplete_fields = ["dept_main"]
     fieldsets = UserAdmin.fieldsets + (
         ("Role & Department", {
-            "fields": ("role", "dept_main", "linkedin_url", "profile_photo")
+            "fields": ("role", "dept_main", "linkedin_url", "phone_number", "profile_photo")
         }),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Role & Department", {
-            "fields": ("role", "dept_main", "linkedin_url")
+            "fields": ("role", "dept_main", "linkedin_url", "phone_number")
         }),
     )
     list_display = ("username", "email", "role", "dept_main", "is_staff", "is_active")
     list_filter = ("role", "dept_main", "is_staff", "is_active")
+    search_fields = ("username", "first_name", "last_name", "email")

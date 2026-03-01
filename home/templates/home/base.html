@@ -6,8 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}h2o{% endblock %}</title>
   <link rel="icon" type="image/jpeg" href="{% static 'home/img/favicon.jpg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'home/css/navbar.css' %}">
   {% block extra_css %}{% endblock %}
+  <script>
+    // Apply saved theme before first paint to avoid flash
+    (function() {
+      if (localStorage.getItem('h2o-theme') === 'dark')
+        document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
 </head>
 <body>
   {% include "home/navbar.html" %}
@@ -26,6 +36,115 @@
       }, { threshold: 0 });
       sentinel.observe(hero);
     }
+
+    // Emoji theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    function applyTheme(dark) {
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('h2o-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('h2o-theme', 'light');
+      }
+      if (themeToggle) themeToggle.textContent = dark ? '☀️' : '🌙';
+    }
+    if (themeToggle) {
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark');
+      themeToggle.addEventListener('click', () => {
+        applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+      });
+    }
+
+    // Active nav pill tracker
+    (function () {
+      const NAV_SECTIONS = ['why', 'what', 'phases', 'who', 'roadmap'];
+      const pill = document.getElementById('navPill');
+      const centre = document.querySelector('.h2o-nav__centre');
+
+      function movePill(sectionId) {
+        if (!pill || !centre) return;
+        const item = document.querySelector(`.h2o-nav__item[data-section="${sectionId}"]`);
+        if (!item) return;
+        const cr = centre.getBoundingClientRect();
+        const ir = item.getBoundingClientRect();
+        pill.style.left   = (ir.left - cr.left) + 'px';
+        pill.style.width  = ir.width + 'px';
+        pill.style.top    = ((cr.height - ir.height) / 2) + 'px';
+        pill.style.height = ir.height + 'px';
+        pill.style.opacity = '1';
+      }
+
+      function hidePill() {
+        if (pill) pill.style.opacity = '0';
+      }
+
+      // Track which sections are in view
+      const inView = new Set();
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            inView.add(e.target.id);
+          } else {
+            inView.delete(e.target.id);
+          }
+        });
+
+        if (inView.size === 0) {
+          hidePill();
+          return;
+        }
+
+        // Pick the topmost visible tracked section
+        let topmost = null;
+        let topmostY = Infinity;
+        inView.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            const y = el.getBoundingClientRect().top;
+            if (y < topmostY) { topmostY = y; topmost = id; }
+          }
+        });
+
+        // Only show pill if a nav section is actually visible (not hero/blog-teaser)
+        if (topmost) movePill(topmost);
+        else hidePill();
+      }, { threshold: 0.15 });
+
+      NAV_SECTIONS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+      });
+
+      // Also hide pill when hero is visible (we're above all sections)
+      const heroEl = document.querySelector('.hero');
+      if (heroEl) {
+        const heroObserver = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting && inView.size === 0) hidePill();
+        }, { threshold: 0 });
+        heroObserver.observe(heroEl);
+      }
+
+      // Reposition pill on resize
+      window.addEventListener('resize', () => {
+        if (pill && parseFloat(pill.style.opacity) > 0) {
+          const visibleSection = [...inView][0];
+          if (visibleSection) movePill(visibleSection);
+        }
+      });
+    })();
+
+    // Dropdown links that open accordions after scroll lands
+    document.querySelectorAll('[data-open-accordion]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        const btnId = link.dataset.openAccordion;
+        setTimeout(function () {
+          const btn = document.getElementById(btnId);
+          if (btn && btn.getAttribute('aria-expanded') !== 'true') btn.click();
+        }, 500);
+      });
+    });
   </script>
 </body>
 </html>

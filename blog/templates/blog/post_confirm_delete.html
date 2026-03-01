@@ -1,0 +1,27 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Delete Post — h2o{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="post-create">
+  <div class="post-create__header">
+    <a href="{% url 'blog:post_list' %}" class="post-detail__back">← Blog</a>
+    <h1>Delete post</h1>
+  </div>
+  <p style="font-size:16px; color: var(--c-text); margin-bottom: 28px;">
+    Are you sure you want to delete <strong>{{ post.title }}</strong>? This cannot be undone.
+  </p>
+  <form method="post" class="post-form">
+    {% csrf_token %}
+    <div class="post-form__actions">
+      <a href="{% url 'blog:post_list' %}" class="post-form__cancel">Cancel</a>
+      <button type="submit" class="post-form__submit" style="background: #ef4444;">Delete</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
