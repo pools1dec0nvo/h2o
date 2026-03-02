@@ -67,9 +67,9 @@ def edit_profile(request):
             profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user)
             if profile_form.is_valid():
                 if not request.FILES.get("profile_photo"):
-                    profile_form.cleaned_data.pop("profile_photo", None)
-                    profile_form.instance.profile_photo = request.user.profile_photo
-                profile_form.save()
+                    profile_form.save(update_fields=["first_name", "last_name", "email", "linkedin_url", "phone_number"])
+                else:
+                    profile_form.save()
                 profile_saved = True
         elif "save_password" in request.POST:
             password_form = ChangePasswordForm(user=request.user, data=request.POST)
