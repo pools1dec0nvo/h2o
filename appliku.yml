@@ -29,6 +29,6 @@ databases:
 
 volumes:
   media:
-    target: /app/media/
+    target: /code/media/
     url: /media/
     environment_variable: MEDIA_ROOT
