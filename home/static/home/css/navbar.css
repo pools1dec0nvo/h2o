@@ -288,3 +288,27 @@ body.scrolled .h2o-nav__username {
 body.scrolled .h2o-nav__username:hover {
   color: var(--c-nav-text);
 }
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .h2o-nav {
+    grid-template-columns: 1fr auto;
+  }
+
+  .h2o-nav__centre {
+    display: none;
+  }
+
+  .h2o-nav__right {
+    gap: 6px;
+  }
+
+  .h2o-nav__btn {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .h2o-nav__username {
+    display: none;
+  }
+}
