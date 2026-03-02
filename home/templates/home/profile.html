@@ -155,6 +155,14 @@
     {{ profile_form.profile_photo }}
   </div>
 
+  <div class="auth-form__field">
+    <label for="{{ profile_form.curriculum.id_for_label }}">Curriculum (PDF)</label>
+    {% if request.user.curriculum and request.user.curriculum.name %}
+      <a href="{{ request.user.curriculum.url }}" target="_blank" rel="noopener" style="display:block;font-size:13px;margin-bottom:6px;">Current: {{ request.user.curriculum.name|cut:"curricula/" }}</a>
+    {% endif %}
+    {{ profile_form.curriculum }}
+  </div>
+
   <button type="submit" name="save_profile" class="auth-form__submit auth-form__submit--secondary">
     Save profile
   </button>

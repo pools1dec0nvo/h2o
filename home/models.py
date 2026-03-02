@@ -10,6 +10,7 @@ class User(AbstractUser):
 
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.NORMAL)
     profile_photo = models.ImageField(upload_to="profile_photos/", blank=True, null=True)
+    curriculum = models.FileField(upload_to="curricula/", blank=True, null=True)
     linkedin_url = models.URLField(blank=True)
     phone_number = models.CharField(max_length=30, blank=True)
 

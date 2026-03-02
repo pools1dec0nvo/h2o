@@ -66,10 +66,16 @@ def edit_profile(request):
         if "save_profile" in request.POST:
             profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user)
             if profile_form.is_valid():
-                if not request.FILES.get("profile_photo"):
-                    profile_form.save(update_fields=["first_name", "last_name", "email", "linkedin_url", "phone_number"])
+                text_fields = ["first_name", "last_name", "email", "linkedin_url", "phone_number"]
+                has_photo = bool(request.FILES.get("profile_photo"))
+                has_cv = bool(request.FILES.get("curriculum"))
+                extra = (["profile_photo"] if has_photo else []) + (["curriculum"] if has_cv else [])
+                if extra:
+                    instance = profile_form.save(commit=False)
+                    instance.save(update_fields=text_fields + extra)
                 else:
-                    profile_form.save()
+                    instance = profile_form.save(commit=False)
+                    instance.save(update_fields=text_fields)
                 profile_saved = True
         elif "save_password" in request.POST:
             password_form = ChangePasswordForm(user=request.user, data=request.POST)

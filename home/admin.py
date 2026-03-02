@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
     autocomplete_fields = ["dept_main"]
     fieldsets = UserAdmin.fieldsets + (
         ("Role & Department", {
-            "fields": ("role", "dept_main", "linkedin_url", "phone_number", "profile_photo")
+            "fields": ("role", "dept_main", "linkedin_url", "phone_number", "profile_photo", "curriculum")
         }),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (

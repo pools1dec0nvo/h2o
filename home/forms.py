@@ -44,10 +44,12 @@ class EditProfileForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"placeholder": "+351 900 000 000"}))
     profile_photo = forms.ImageField(required=False,
         widget=forms.FileInput())
+    curriculum = forms.FileField(required=False,
+        widget=forms.FileInput())
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "linkedin_url", "phone_number", "profile_photo")
+        fields = ("first_name", "last_name", "email", "linkedin_url", "phone_number", "profile_photo", "curriculum")
 
 
 class DeptOtherForm(forms.Form):
