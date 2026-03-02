@@ -16,7 +16,7 @@ build_settings:
 
 services:
   web:
-    command: "sh -c 'mkdir -p /media/profile_photos && chmod -R 777 /media && gunicorn h2o.wsgi --bind 0.0.0.0:8000 --log-file -'"
+    command: gunicorn h2o.wsgi --bind 0.0.0.0:8000 --log-file -
     scale: 1
     mode: replicated
 
