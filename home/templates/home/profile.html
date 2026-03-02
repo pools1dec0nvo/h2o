@@ -84,7 +84,7 @@
 
 {% block auth_content %}
 <div class="profile-avatar">
-  {% if request.user.profile_photo %}
+  {% if request.user.profile_photo and request.user.profile_photo.name %}
     <img class="profile-avatar__img" src="{{ request.user.profile_photo.url }}" alt="">
   {% else %}
     <div class="profile-avatar__placeholder"></div>
