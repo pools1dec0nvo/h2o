@@ -1,0 +1,205 @@
+/* ── Mobile navbar overrides ─────────────────────────────────────
+   All rules here are scoped to max-width: 767px.
+   navbar.css (desktop) is left completely untouched.
+────────────────────────────────────────────────────────────────── */
+
+/* Mobile title animation — declared outside media query so transitions always apply */
+.orbis-nav__mobile-title {
+  transition: opacity 0.18s ease, transform 0.18s ease, color 0.3s;
+}
+
+/* Mobile theme button hidden on desktop */
+.orbis-nav__mobile-theme-btn {
+  display: none;
+}
+
+@media (max-width: 767px) {
+
+  /* ── Nav bar grid: brand | [space] | theme | burger ────────── */
+  .orbis-nav {
+    grid-template-columns: auto 1fr auto auto;
+    padding: 0 14px;
+    gap: 0;
+  }
+
+  /* Brand stays left — z-index so it sits above the absolute title */
+  .orbis-nav__brand {
+    grid-column: 1;
+    order: 1;
+    justify-self: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Title is pinned to the full viewport width — truly centred */
+  .orbis-nav__mobile-title {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-body);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    /* Hero: white text over the frosted bar (matches dark mode) */
+    color: rgba(255, 255, 255, 0.88);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+.orbis-nav__mobile-title.is-changing {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  /* After scroll: accent-tinted nav text colour (both themes) */
+  body.scrolled .orbis-nav__mobile-title {
+    color: color-mix(in srgb, var(--c-accent) 55%, var(--c-nav-text));
+  }
+
+  /* Non-hero pages (blog, login, etc.): hide the title entirely */
+  body:not(.has-hero) .orbis-nav__mobile-title {
+    display: none;
+  }
+
+  /* ── Mobile theme toggle (left of burger) ───────────────────── */
+  .orbis-nav__mobile-theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 3;
+    order: 3;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px 6px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Hamburger rightmost ────────────────────────────────────── */
+  .orbis-nav__burger {
+    grid-column: 4;
+    order: 4;
+    position: relative;
+    z-index: 1;
+    justify-self: end;
+    width: 32px;
+    height: 32px;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+  }
+
+  /* Bolder hamburger lines */
+  .orbis-nav__burger span {
+    width: 22px;
+    height: 2px;
+    margin: 3px 0;
+    border-radius: 1px;
+  }
+
+  /* X animation: centre-to-centre = 2px + 3px + 3px = 8px */
+  .orbis-nav__burger.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .orbis-nav__burger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .orbis-nav__burger.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* ── Hide desktop-only elements ─────────────────────────────── */
+  .orbis-nav__centre {
+    display: none;
+  }
+
+  .orbis-nav__right {
+    display: none;
+  }
+
+  /* ── Mobile drawer (flex column: blog top, links, auth bottom) ─ */
+  .orbis-nav__mobile-drawer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Blog button at top of drawer */
+  .orbis-nav__mobile-top {
+    padding: 8px 16px 0;
+    flex-shrink: 0;
+  }
+
+  .orbis-nav__mobile-top .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 980px;
+    margin-bottom: 8px;
+  }
+
+  /* Section links in the middle */
+  .orbis-nav__mobile-links {
+    flex: 0 0 auto;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .orbis-nav__mobile-link {
+    display: block;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--c-nav-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--c-border);
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .orbis-nav__mobile-links li:last-child .orbis-nav__mobile-link {
+    border-bottom: none;
+  }
+
+  .orbis-nav__mobile-link:hover {
+    background: color-mix(in srgb, var(--c-accent) 8%, transparent);
+    color: var(--c-accent);
+  }
+
+  /* Auth section pinned at bottom — no extra padding, flush with links */
+  .orbis-nav__mobile-auth {
+    border-top: 1px solid var(--c-border);
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  /* Logged-in: username + logout on one row, opposite ends */
+  .orbis-nav__mobile-auth--row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .orbis-nav__mobile-auth--row .orbis-nav__mobile-link {
+    border-bottom: none;
+    flex: 0 0 auto;
+  }
+
+  .orbis-nav__mobile-link--muted {
+    color: var(--c-text-muted);
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+}

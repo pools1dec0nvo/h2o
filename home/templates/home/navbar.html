@@ -1,12 +1,23 @@
 {% load static %}
 <nav class="orbis-nav" id="orbis-nav">
 
-  <!-- Brand -->
+  <!-- Brand (left on desktop, left on mobile) -->
   <a href="/" class="orbis-nav__brand">
     <img src="{% static 'home/img/favicon.jpg' %}" alt="orbis" class="orbis-nav__logo">
   </a>
 
-  <!-- Centre links + sliding pill -->
+  <!-- Mobile-only dynamic section title (centre) -->
+  <div class="orbis-nav__mobile-title" id="navMobileTitle" aria-hidden="true">Welcome!</div>
+
+  <!-- Mobile-only theme toggle (right side, left of burger) -->
+  <button class="orbis-nav__mobile-theme-btn" id="themeToggleMobile" aria-label="Toggle theme"></button>
+
+  <!-- Mobile hamburger (rightmost on mobile, hidden on desktop via CSS in navbar.css) -->
+  <button class="orbis-nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Centre links + sliding pill (desktop only) -->
   <div class="orbis-nav__centre">
     <span class="orbis-nav__pill" id="navPill" aria-hidden="true"></span>
 
@@ -41,7 +52,7 @@
     </ul>
   </div>
 
-  <!-- Right-side controls -->
+  <!-- Right-side controls (desktop only) -->
   <div class="orbis-nav__right">
     <button class="orbis-nav__theme-btn" id="themeToggle" aria-label="Toggle theme"></button>
 
@@ -59,26 +70,29 @@
     {% endif %}
   </div>
 
-  <!-- Mobile hamburger -->
-  <button class="orbis-nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-
   <!-- Mobile drawer -->
   <div class="orbis-nav__mobile-drawer" id="navDrawer" aria-hidden="true">
+
+    <!-- Blog button at the top -->
+    <div class="orbis-nav__mobile-top">
+      {% if request.resolver_match.app_name == 'blog' %}
+        <a href="/" class="btn btn--ghost">← Site</a>
+      {% else %}
+        <a href="/blog/" class="btn btn--solid">Blog</a>
+      {% endif %}
+    </div>
+
+    <!-- Section links -->
     <ul class="orbis-nav__mobile-links">
       <li><a href="/#why" class="orbis-nav__mobile-link">Motivation</a></li>
       <li><a href="/#what" class="orbis-nav__mobile-link">Our Solution</a></li>
       <li><a href="/#phases" class="orbis-nav__mobile-link">Stages</a></li>
       <li><a href="/#who" class="orbis-nav__mobile-link">Team</a></li>
       <li><a href="/#roadmap" class="orbis-nav__mobile-link">Roadmap</a></li>
-      {% if request.resolver_match.app_name == 'blog' %}
-      <li><a href="/" class="orbis-nav__mobile-link">← Site</a></li>
-      {% else %}
-      <li><a href="/blog/" class="orbis-nav__mobile-link">Blog</a></li>
-      {% endif %}
     </ul>
-    <div class="orbis-nav__mobile-auth">
+
+    <!-- Auth at the bottom -->
+    <div class="orbis-nav__mobile-auth{% if user.is_authenticated %} orbis-nav__mobile-auth--row{% endif %}">
       {% if user.is_authenticated %}
         <a href="{% url 'home:profile' %}" class="orbis-nav__mobile-link">{{ user.get_full_name|default:user.username }}</a>
         <a href="/logout/" class="orbis-nav__mobile-link orbis-nav__mobile-link--muted">Log Out</a>
@@ -86,6 +100,7 @@
         <a href="/login/" class="orbis-nav__mobile-link">Log In</a>
       {% endif %}
     </div>
+
   </div>
 
 </nav>

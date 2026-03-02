@@ -152,6 +152,7 @@ body:not(.has-hero) .orbis-nav {
 
 /* ── Brand ───────────────────────────────────────────────────── */
 .orbis-nav__brand {
+  grid-column: 1;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -170,6 +171,7 @@ body:not(.has-hero) .orbis-nav {
 
 /* ── Centre container ────────────────────────────────────────── */
 .orbis-nav__centre {
+  grid-column: 2;
   position: relative;
   display: flex;
   justify-content: center;
@@ -293,6 +295,7 @@ body:not(.has-hero) .orbis-nav__pill {
 
 /* ── Right side ──────────────────────────────────────────────── */
 .orbis-nav__right {
+  grid-column: 3;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -415,7 +418,7 @@ body:not(.has-hero) .orbis-nav__burger span {
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--c-nav-border);
-  padding: 12px 0 20px;
+  padding: 0;
   z-index: 999;
   /* slide-down animation */
   transform: translateY(-8px);
@@ -467,25 +470,10 @@ body:not(.has-hero) .orbis-nav__burger span {
   font-weight: 400;
 }
 
-/* ── Mobile layout ───────────────────────────────────────────── */
-@media (max-width: 767px) {
-  .orbis-nav {
-    grid-template-columns: 1fr auto;
-  }
-
-  .orbis-nav__centre {
-    display: none;
-  }
-
-  .orbis-nav__right {
-    display: none;
-  }
-
-  .orbis-nav__burger {
-    display: flex;
-  }
-
-  .orbis-nav__mobile-drawer {
-    display: block;
-  }
+/* ── Hide mobile-only elements on desktop ────────────────────── */
+.orbis-nav__mobile-title,
+.orbis-nav__mobile-theme-btn {
+  display: none;
 }
+
+/* ── Mobile layout: handled in navbar_mobile.css ─────────────── */

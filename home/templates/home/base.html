@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'home/css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/navbar_mobile.css' %}">
   {% block extra_css %}{% endblock %}
   <script>
     // Apply saved theme before first paint to avoid flash
@@ -37,8 +38,9 @@
       sentinel.observe(hero);
     }
 
-    // Emoji theme toggle
+    // Emoji theme toggle (desktop + mobile)
     const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
     function applyTheme(dark) {
       if (dark) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -47,20 +49,37 @@
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('orbis-theme', 'light');
       }
-      if (themeToggle) themeToggle.textContent = dark ? '☀️' : '🌙';
+      const icon = dark ? '☀️' : '🌙';
+      if (themeToggle) themeToggle.textContent = icon;
+      if (themeToggleMobile) themeToggleMobile.textContent = icon;
     }
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    applyTheme(isDark);
     if (themeToggle) {
-      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark');
       themeToggle.addEventListener('click', () => {
         applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
       });
     }
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener('click', () => {
+        applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+      });
+    }
 
-    // Active nav pill tracker
+    // Active nav pill tracker + mobile section title
     (function () {
       const NAV_SECTIONS = ['why', 'what', 'phases', 'who', 'roadmap'];
+      const NAV_LABELS = {
+        why: 'Motivation',
+        what: 'Our Solution',
+        phases: 'Stages',
+        who: 'Team',
+        roadmap: 'Roadmap',
+      };
+
       const pill = document.getElementById('navPill');
       const centre = document.querySelector('.orbis-nav__centre');
+      const mobileTitle = document.getElementById('navMobileTitle');
 
       function movePill(sectionId) {
         if (!pill || !centre) return;
@@ -77,6 +96,17 @@
 
       function hidePill() {
         if (pill) pill.style.opacity = '0';
+      }
+
+      function setMobileTitle(label) {
+        if (!mobileTitle) return;
+        if (mobileTitle.dataset.current === label) return;
+        mobileTitle.dataset.current = label;
+        mobileTitle.classList.add('is-changing');
+        setTimeout(function () {
+          mobileTitle.textContent = label;
+          mobileTitle.classList.remove('is-changing');
+        }, 140);
       }
 
       // Track which sections are in view
@@ -107,9 +137,12 @@
           }
         });
 
-        // Only show pill if a nav section is actually visible (not hero/blog-teaser)
-        if (topmost) movePill(topmost);
-        else hidePill();
+        if (topmost) {
+          movePill(topmost);
+          setMobileTitle(NAV_LABELS[topmost] || 'Welcome!');
+        } else {
+          hidePill();
+        }
       }, { threshold: 0.15 });
 
       NAV_SECTIONS.forEach(id => {
@@ -117,11 +150,14 @@
         if (el) sectionObserver.observe(el);
       });
 
-      // Also hide pill when hero is visible (we're above all sections)
+      // Reset title + hide pill whenever the hero is visible (no condition on inView)
       const heroEl = document.querySelector('.hero');
       if (heroEl) {
         const heroObserver = new IntersectionObserver(([entry]) => {
-          if (entry.isIntersecting && inView.size === 0) hidePill();
+          if (entry.isIntersecting) {
+            hidePill();
+            setMobileTitle('Welcome!');
+          }
         }, { threshold: 0 });
         heroObserver.observe(heroEl);
       }
