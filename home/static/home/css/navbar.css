@@ -7,15 +7,15 @@
   --c-text:        #334155;
   --c-text-muted:  #475569;
   --c-text-head:   #1e293b;
-  --c-accent:      #22c55e;
-  --c-accent-hover:#16a34a;
+  --c-accent:      #2563eb;
+  --c-accent-hover:#1d4ed8;
   --c-nav-bg:      rgba(248, 249, 250, 0.92);
   --c-nav-border:  rgba(0, 0, 0, 0.07);
   --c-nav-text:    #334155;
   --c-nav-muted:   #475569;
-  --c-eyebrow:     #22c55e;
-  --ff-body:       -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --ff-head:       -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --c-eyebrow:     #2563eb;
+  --ff-body:       'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ff-head:       'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 [data-theme="dark"] {
@@ -37,17 +37,81 @@
   --ff-head:       'Bungee', -apple-system, sans-serif;
 }
 
-/* ── Base ────────────────────────────────────────────────────── */
+/* ── Dept pill (shared across all pages) ────────────────────── */
+.dept-pill {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: var(--dept-color, #64748b);
+}
+
+/* ── Reset / base ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
   font-family: var(--ff-body);
+  font-size: 16px;
   color: var(--c-text);
   background: var(--c-bg);
   scroll-behavior: smooth;
   transition: background 0.3s, color 0.3s;
 }
 
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: var(--ff-body);
+  text-decoration: none;
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+
+.btn--ghost {
+  border: 1.5px solid rgba(255,255,255,0.7);
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+}
+
+.btn--ghost:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: #fff;
+}
+
+.btn--solid {
+  background: var(--c-accent);
+  color: #fff;
+}
+
+.btn--solid:hover {
+  background: var(--c-accent-hover);
+}
+
+.btn--outline-dark {
+  border: 1.5px solid var(--c-text);
+  color: var(--c-text);
+  background: transparent;
+}
+
+.btn--outline-dark:hover {
+  background: var(--c-text);
+  color: var(--c-bg);
+}
+
 /* ── Navbar ─────────────────────────────────────────────────── */
-.h2o-nav {
+.orbis-nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -69,7 +133,16 @@ body {
 }
 
 /* After scroll: become fixed + standard frosted bg */
-body.scrolled .h2o-nav {
+body.scrolled .orbis-nav {
+  position: fixed;
+  background: var(--c-nav-bg);
+  border-bottom-color: var(--c-nav-border);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Blog/auth pages have no hero, always use solid frosted bg */
+body:not(.has-hero) .orbis-nav {
   position: fixed;
   background: var(--c-nav-bg);
   border-bottom-color: var(--c-nav-border);
@@ -78,14 +151,14 @@ body.scrolled .h2o-nav {
 }
 
 /* ── Brand ───────────────────────────────────────────────────── */
-.h2o-nav__brand {
+.orbis-nav__brand {
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-self: start;
 }
 
-.h2o-nav__logo {
+.orbis-nav__logo {
   height: 39px;
   width: 39px;
   border-radius: 6px;
@@ -96,7 +169,7 @@ body.scrolled .h2o-nav {
 }
 
 /* ── Centre container ────────────────────────────────────────── */
-.h2o-nav__centre {
+.orbis-nav__centre {
   position: relative;
   display: flex;
   justify-content: center;
@@ -104,7 +177,7 @@ body.scrolled .h2o-nav {
 }
 
 /* ── Links list ──────────────────────────────────────────────── */
-.h2o-nav__links {
+.orbis-nav__links {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -115,11 +188,11 @@ body.scrolled .h2o-nav {
   z-index: 1;
 }
 
-.h2o-nav__item {
+.orbis-nav__item {
   position: relative;
 }
 
-.h2o-nav__link {
+.orbis-nav__link {
   display: block;
   padding: 5px 12px;
   color: #fff;
@@ -129,16 +202,17 @@ body.scrolled .h2o-nav {
   white-space: nowrap;
 }
 
-.h2o-nav__link:hover {
+.orbis-nav__link:hover {
   opacity: 1;
 }
 
-body.scrolled .h2o-nav__link {
+body.scrolled .orbis-nav__link,
+body:not(.has-hero) .orbis-nav__link {
   color: var(--c-nav-text);
 }
 
 /* ── Sliding pill ────────────────────────────────────────────── */
-.h2o-nav__pill {
+.orbis-nav__pill {
   position: absolute;
   border: 1.5px solid var(--c-accent);
   border-radius: 980px;
@@ -153,20 +227,21 @@ body.scrolled .h2o-nav__link {
 }
 
 /* Hero state: pill border is white so it's visible on frosted bg */
-.h2o-nav__pill {
+.orbis-nav__pill {
   border-color: rgba(255, 255, 255, 0.85);
 }
 
-body.scrolled .h2o-nav__pill {
+body.scrolled .orbis-nav__pill,
+body:not(.has-hero) .orbis-nav__pill {
   border-color: var(--c-accent);
 }
 
 /* ── Dropdowns ───────────────────────────────────────────────── */
-.h2o-nav__item--has-dropdown {
+.orbis-nav__item--has-dropdown {
   position: relative;
 }
 
-.h2o-nav__dropdown {
+.orbis-nav__dropdown {
   position: absolute;
   top: calc(100% + 8px);
   left: 50%;
@@ -179,31 +254,30 @@ body.scrolled .h2o-nav__pill {
   min-width: 140px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   z-index: 100;
-  /* hidden by default, fade in on hover */
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.15s ease, visibility 0s linear 0.15s;
   pointer-events: none;
 }
 
-/* Invisible bridge fills the gap so the mouse can travel from link to dropdown */
-.h2o-nav__item--has-dropdown::after {
+/* Invisible bridge fills gap so mouse can travel from link to dropdown */
+.orbis-nav__item--has-dropdown::after {
   content: '';
   position: absolute;
   top: 100%;
   left: -12px;
   right: -12px;
-  height: 12px; /* matches the 8px gap + a small buffer */
+  height: 12px;
 }
 
-.h2o-nav__item--has-dropdown:hover .h2o-nav__dropdown {
+.orbis-nav__item--has-dropdown:hover .orbis-nav__dropdown {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.15s ease, visibility 0s linear 0s;
   pointer-events: auto;
 }
 
-.h2o-nav__dropdown-link {
+.orbis-nav__dropdown-link {
   display: block;
   padding: 8px 16px;
   color: var(--c-text);
@@ -213,12 +287,12 @@ body.scrolled .h2o-nav__pill {
   transition: background 0.12s;
 }
 
-.h2o-nav__dropdown-link:hover {
+.orbis-nav__dropdown-link:hover {
   background: var(--c-bg-alt);
 }
 
 /* ── Right side ──────────────────────────────────────────────── */
-.h2o-nav__right {
+.orbis-nav__right {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -226,7 +300,7 @@ body.scrolled .h2o-nav__pill {
 }
 
 /* Theme emoji button */
-.h2o-nav__theme-btn {
+.orbis-nav__theme-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -239,76 +313,179 @@ body.scrolled .h2o-nav__pill {
 }
 
 /* Nav-sized btn override */
-.h2o-nav__btn {
+.orbis-nav__btn {
   padding: 6px 16px !important;
   font-size: 13px !important;
   text-decoration: none;
 }
 
 /* Ghost btn: white-border on hero, theme-colored after scroll */
-.h2o-nav .btn--ghost {
+.orbis-nav .btn--ghost {
   border-color: rgba(255, 255, 255, 0.75);
   color: #fff;
   background: rgba(255, 255, 255, 0.08);
 }
 
-.h2o-nav .btn--ghost:hover {
+.orbis-nav .btn--ghost:hover {
   background: rgba(255, 255, 255, 0.2);
   border-color: #fff;
 }
 
-body.scrolled .h2o-nav .btn--ghost {
+body.scrolled .orbis-nav .btn--ghost,
+body:not(.has-hero) .orbis-nav .btn--ghost {
   border-color: var(--c-text);
   color: var(--c-text);
   background: transparent;
 }
 
-body.scrolled .h2o-nav .btn--ghost:hover {
+body.scrolled .orbis-nav .btn--ghost:hover,
+body:not(.has-hero) .orbis-nav .btn--ghost:hover {
   background: var(--c-text);
   color: var(--c-bg);
 }
 
 /* Username link */
-.h2o-nav__username {
+.orbis-nav__username {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   transition: color 0.15s;
 }
 
-.h2o-nav__username:hover {
+.orbis-nav__username:hover {
   color: #fff;
   text-decoration: underline;
 }
 
-body.scrolled .h2o-nav__username {
+body.scrolled .orbis-nav__username,
+body:not(.has-hero) .orbis-nav__username {
   color: var(--c-nav-muted);
 }
 
-body.scrolled .h2o-nav__username:hover {
+body.scrolled .orbis-nav__username:hover,
+body:not(.has-hero) .orbis-nav__username:hover {
   color: var(--c-nav-text);
 }
 
-/* ── Mobile ──────────────────────────────────────────────────── */
+/* ── Hamburger button ────────────────────────────────────────── */
+.orbis-nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  justify-self: end;
+  flex-shrink: 0;
+}
+
+.orbis-nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+
+body.scrolled .orbis-nav__burger span,
+body:not(.has-hero) .orbis-nav__burger span {
+  background: var(--c-nav-text);
+}
+
+/* Animated X when open */
+.orbis-nav__burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.orbis-nav__burger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.orbis-nav__burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile drawer ───────────────────────────────────────────── */
+.orbis-nav__mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  background: var(--c-nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--c-nav-border);
+  padding: 12px 0 20px;
+  z-index: 999;
+  /* slide-down animation */
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.orbis-nav__mobile-drawer.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.orbis-nav__mobile-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.orbis-nav__mobile-link {
+  display: block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--c-nav-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--c-border);
+  transition: background 0.12s;
+}
+
+.orbis-nav__mobile-links li:last-child .orbis-nav__mobile-link {
+  border-bottom: none;
+}
+
+.orbis-nav__mobile-link:hover {
+  background: color-mix(in srgb, var(--c-accent) 8%, transparent);
+  color: var(--c-accent);
+}
+
+.orbis-nav__mobile-auth {
+  border-top: 1px solid var(--c-border);
+  margin-top: 8px;
+  padding-top: 4px;
+}
+
+.orbis-nav__mobile-link--muted {
+  color: var(--c-text-muted);
+  font-weight: 400;
+}
+
+/* ── Mobile layout ───────────────────────────────────────────── */
 @media (max-width: 767px) {
-  .h2o-nav {
+  .orbis-nav {
     grid-template-columns: 1fr auto;
   }
 
-  .h2o-nav__centre {
+  .orbis-nav__centre {
     display: none;
   }
 
-  .h2o-nav__right {
-    gap: 6px;
-  }
-
-  .h2o-nav__btn {
-    padding: 5px 10px !important;
-    font-size: 12px !important;
-  }
-
-  .h2o-nav__username {
+  .orbis-nav__right {
     display: none;
+  }
+
+  .orbis-nav__burger {
+    display: flex;
+  }
+
+  .orbis-nav__mobile-drawer {
+    display: block;
   }
 }

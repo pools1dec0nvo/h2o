@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}h2o{% endblock %}</title>
+  <title>{% block title %}orbis{% endblock %}</title>
   <link rel="icon" type="image/jpeg" href="{% static 'home/img/favicon.jpg' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +14,12 @@
   <script>
     // Apply saved theme before first paint to avoid flash
     (function() {
-      if (localStorage.getItem('h2o-theme') === 'dark')
+      if (localStorage.getItem('orbis-theme') === 'dark')
         document.documentElement.setAttribute('data-theme', 'dark');
     })();
   </script>
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
   {% include "home/navbar.html" %}
 
   <main>
@@ -42,10 +42,10 @@
     function applyTheme(dark) {
       if (dark) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('h2o-theme', 'dark');
+        localStorage.setItem('orbis-theme', 'dark');
       } else {
         document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('h2o-theme', 'light');
+        localStorage.setItem('orbis-theme', 'light');
       }
       if (themeToggle) themeToggle.textContent = dark ? '☀️' : '🌙';
     }
@@ -60,11 +60,11 @@
     (function () {
       const NAV_SECTIONS = ['why', 'what', 'phases', 'who', 'roadmap'];
       const pill = document.getElementById('navPill');
-      const centre = document.querySelector('.h2o-nav__centre');
+      const centre = document.querySelector('.orbis-nav__centre');
 
       function movePill(sectionId) {
         if (!pill || !centre) return;
-        const item = document.querySelector(`.h2o-nav__item[data-section="${sectionId}"]`);
+        const item = document.querySelector(`.orbis-nav__item[data-section="${sectionId}"]`);
         if (!item) return;
         const cr = centre.getBoundingClientRect();
         const ir = item.getBoundingClientRect();
@@ -145,6 +145,28 @@
         }, 500);
       });
     });
+
+    // Mobile hamburger menu
+    const burger = document.getElementById('navBurger');
+    const drawer = document.getElementById('navDrawer');
+    if (burger && drawer) {
+      burger.addEventListener('click', function () {
+        const open = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!open));
+        drawer.setAttribute('aria-hidden', String(open));
+        burger.classList.toggle('is-open', !open);
+        drawer.classList.toggle('is-open', !open);
+      });
+      // Close drawer when a link is tapped
+      drawer.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          burger.setAttribute('aria-expanded', 'false');
+          drawer.setAttribute('aria-hidden', 'true');
+          burger.classList.remove('is-open');
+          drawer.classList.remove('is-open');
+        });
+      });
+    }
   </script>
 </body>
 </html>

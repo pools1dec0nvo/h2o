@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-{% block title %}Blog — h2o{% endblock %}
+{% block title %}Blog — orbis{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
@@ -27,7 +27,7 @@
             <a href="?dept={{ dept.slug }}"
                class="blog-filter__pill {% if active_dept == dept.slug %}blog-filter__pill--active{% endif %}"
                style="--pill-color: {{ dept.color }};">
-              {{ dept.short_name }}
+              {{ dept.full_name }}
             </a>
           {% endfor %}
         </div>
@@ -45,9 +45,7 @@
               <span class="post-card__sep">·</span>
               <span class="post-card__date">{{ item.post.created_at|date:"N j, Y" }}</span>
               {% for dept in item.post.dept_entries.all %}
-                <span class="post-card__dept-pill" style="background-color: {{ dept.dept.color }};">
-                  {{ dept.dept.short_name|upper }}
-                </span>
+                <span class="dept-pill" style="--dept-color: {{ dept.dept.color }};">{{ dept.dept.full_name }}</span>
               {% endfor %}
               {% if user.is_authenticated %}
                 {% if user.is_sys or user.is_collab and item.post.poster == user %}

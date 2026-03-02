@@ -1,5 +1,5 @@
 """
-WSGI config for h2o project.
+WSGI config for orbis project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

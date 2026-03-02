@@ -1,58 +1,91 @@
 {% load static %}
-<nav class="h2o-nav" id="h2o-nav">
+<nav class="orbis-nav" id="orbis-nav">
 
   <!-- Brand -->
-  <a href="/" class="h2o-nav__brand">
-    <img src="{% static 'home/img/favicon.jpg' %}" alt="h2o" class="h2o-nav__logo">
+  <a href="/" class="orbis-nav__brand">
+    <img src="{% static 'home/img/favicon.jpg' %}" alt="orbis" class="orbis-nav__logo">
   </a>
 
   <!-- Centre links + sliding pill -->
-  <div class="h2o-nav__centre">
-    <span class="h2o-nav__pill" id="navPill" aria-hidden="true"></span>
+  <div class="orbis-nav__centre">
+    <span class="orbis-nav__pill" id="navPill" aria-hidden="true"></span>
 
-    <ul class="h2o-nav__links" id="navLinks">
+    <ul class="orbis-nav__links" id="navLinks">
 
-      <li class="h2o-nav__item" data-section="why">
-        <a href="/#why" class="h2o-nav__link">Motivation</a>
+      <li class="orbis-nav__item" data-section="why">
+        <a href="/#why" class="orbis-nav__link">Motivation</a>
       </li>
 
-      <li class="h2o-nav__item h2o-nav__item--has-dropdown" data-section="what">
-        <a href="/#what" class="h2o-nav__link">Our Solution</a>
-        <ul class="h2o-nav__dropdown">
-          <li><a href="/#what" data-open-accordion="specs-toggle" class="h2o-nav__dropdown-link">Tech Specs</a></li>
+      <li class="orbis-nav__item orbis-nav__item--has-dropdown" data-section="what">
+        <a href="/#what" class="orbis-nav__link">Our Solution</a>
+        <ul class="orbis-nav__dropdown">
+          <li><a href="/#what" data-open-accordion="specs-toggle" class="orbis-nav__dropdown-link">Tech Specs</a></li>
         </ul>
       </li>
 
-      <li class="h2o-nav__item" data-section="phases">
-        <a href="/#phases" class="h2o-nav__link">Stages</a>
+      <li class="orbis-nav__item" data-section="phases">
+        <a href="/#phases" class="orbis-nav__link">Stages</a>
       </li>
 
-      <li class="h2o-nav__item h2o-nav__item--has-dropdown" data-section="who">
-        <a href="/#who" class="h2o-nav__link">Team</a>
-        <ul class="h2o-nav__dropdown">
-          <li><a href="/#who" data-open-accordion="dept-toggle" class="h2o-nav__dropdown-link">Departments</a></li>
+      <li class="orbis-nav__item orbis-nav__item--has-dropdown" data-section="who">
+        <a href="/#who" class="orbis-nav__link">Team</a>
+        <ul class="orbis-nav__dropdown">
+          <li><a href="/#who" data-open-accordion="dept-toggle" class="orbis-nav__dropdown-link">Departments</a></li>
         </ul>
       </li>
 
-      <li class="h2o-nav__item" data-section="roadmap">
-        <a href="/#roadmap" class="h2o-nav__link">Roadmap</a>
+      <li class="orbis-nav__item" data-section="roadmap">
+        <a href="/#roadmap" class="orbis-nav__link">Roadmap</a>
       </li>
 
     </ul>
   </div>
 
   <!-- Right-side controls -->
-  <div class="h2o-nav__right">
-    <button class="h2o-nav__theme-btn" id="themeToggle" aria-label="Toggle theme"></button>
+  <div class="orbis-nav__right">
+    <button class="orbis-nav__theme-btn" id="themeToggle" aria-label="Toggle theme"></button>
 
-    <a href="/blog/" class="btn btn--solid h2o-nav__btn">Blog</a>
+    {% if request.resolver_match.app_name == 'blog' %}
+      <a href="/" class="btn btn--ghost orbis-nav__btn">← Site</a>
+    {% else %}
+      <a href="/blog/" class="btn btn--solid orbis-nav__btn">Blog</a>
+    {% endif %}
 
     {% if user.is_authenticated %}
-      <a href="{% url 'home:profile' %}" class="h2o-nav__username">{{ user.get_full_name|default:user.username }}</a>
-      <a href="/logout/" class="btn btn--ghost h2o-nav__btn">Log Out</a>
+      <a href="{% url 'home:profile' %}" class="orbis-nav__username">{{ user.get_full_name|default:user.username }}</a>
+      <a href="/logout/" class="btn btn--ghost orbis-nav__btn">Log Out</a>
     {% else %}
-      <a href="/login/" class="btn btn--ghost h2o-nav__btn">Log In</a>
+      <a href="/login/" class="btn btn--ghost orbis-nav__btn">Log In</a>
     {% endif %}
+  </div>
+
+  <!-- Mobile hamburger -->
+  <button class="orbis-nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Mobile drawer -->
+  <div class="orbis-nav__mobile-drawer" id="navDrawer" aria-hidden="true">
+    <ul class="orbis-nav__mobile-links">
+      <li><a href="/#why" class="orbis-nav__mobile-link">Motivation</a></li>
+      <li><a href="/#what" class="orbis-nav__mobile-link">Our Solution</a></li>
+      <li><a href="/#phases" class="orbis-nav__mobile-link">Stages</a></li>
+      <li><a href="/#who" class="orbis-nav__mobile-link">Team</a></li>
+      <li><a href="/#roadmap" class="orbis-nav__mobile-link">Roadmap</a></li>
+      {% if request.resolver_match.app_name == 'blog' %}
+      <li><a href="/" class="orbis-nav__mobile-link">← Site</a></li>
+      {% else %}
+      <li><a href="/blog/" class="orbis-nav__mobile-link">Blog</a></li>
+      {% endif %}
+    </ul>
+    <div class="orbis-nav__mobile-auth">
+      {% if user.is_authenticated %}
+        <a href="{% url 'home:profile' %}" class="orbis-nav__mobile-link">{{ user.get_full_name|default:user.username }}</a>
+        <a href="/logout/" class="orbis-nav__mobile-link orbis-nav__mobile-link--muted">Log Out</a>
+      {% else %}
+        <a href="/login/" class="orbis-nav__mobile-link">Log In</a>
+      {% endif %}
+    </div>
   </div>
 
 </nav>

@@ -1,5 +1,5 @@
 """
-ASGI config for h2o project.
+ASGI config for orbis project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
