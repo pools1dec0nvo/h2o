@@ -341,12 +341,12 @@
 
           <!-- Row 2: stats (large numbers, no icons) -->
           <div class="info-block info-block--stat">
-            <span class="info-block__number">6</span>
-            <span class="info-block__label">departments</span>
+            <span class="info-block__number">UV</span>
+            <span class="info-block__label">sterilisation</span>
           </div>
           <div class="info-block info-block--stat info-block--wide">
-            <span class="info-block__number">72h</span>
-            <span class="info-block__label">availability</span>
+            <span class="info-block__number">Multi-day</span>
+            <span class="info-block__label">uptime</span>
           </div>
 
           <!-- Row 3: locks -->
@@ -355,14 +355,14 @@
               <!-- droplet -->
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 6 6 9 6 12a6 6 0 1 0 12 0c0-3-2-6-6-10Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            <span class="info-block__label">Potable water</span>
+            <span class="info-block__label">Drinking water</span>
           </div>
           <div class="info-block info-block--accent">
             <span class="info-block__icon" aria-hidden="true">
               <!-- lock -->
               <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             </span>
-            <span class="info-block__label">Secure access</span>
+            <span class="info-block__label">Authenticated access</span>
           </div>
           <div class="info-block info-block--accent">
             <span class="info-block__icon" aria-hidden="true">
@@ -397,19 +397,18 @@
             <li>Low-cost, low-power programmable microcontroller (Raspberry Pi, Arduino, etc.)</li>
             <li>Monitoring sensors for parameters such as: water level, pH, dissolved chlorine, turbidity</li>
             <li>PVC piping</li>
-            <li>Authenticated quick-access door, overrideable in case of total electronics failure</li>
-            <li>Automated valves and siphons</li>
+            <li>Authenticated electronic dispense, overrideable in case of total electronics failure</li>
+            <li>UV sterilisation to inhibit microbial growth</li>
             <li>Activated carbon filters at the dispensing terminal</li>
-            <li>LED panel for local monitoring and debugging</li>
+            <li>Dot-matrix display for local information and debugging</li>
           </ul>
         </div>
 
         <div class="dept-card__inner-box dept-card__inner-box--orange">
-          <strong>Communications</strong>
+          <strong>Telecommunications</strong>
           <ul>
-            <li>Mobile network connectivity during normal operation (3G, 4G)</li>
-            <li>Redundancy protocol to ensure monitoring system resilience</li>
-            <li>Fallback communication via LoRaWAN, Satellite, and UHF/VHF radio</li>
+            <li>Low-power LoRaWan communication to nearest gateway</li>
+            <li>Redundant localised system in case of server inacessibility</li>
           </ul>
         </div>
 
@@ -494,8 +493,8 @@
 <section class="section" id="who">
   <div class="section__inner">
     <span class="section__eyebrow">Who are we?</span>
-    <h2 class="section__title section__title">Our team leaders</h2>
-    <p class="section__lead">Our team combines electrical engineering, telecommunications, computer science and distributed systems, geographic analysis and resource management for a multidisciplinary solution.</p>
+    <h2 class="section__title section__title">Team leaders</h2>
+    <p class="section__lead">Our team combines electrical engineering and telecommunications, computer science and distributed systems, geographic analysis and resource management for a multidisciplinary solution.</p>
     <div class="team-grid">
       {% for member in team %}
       <div class="team-card">
