@@ -1,32 +1,54 @@
 from django.contrib import admin
 
-from home.models import User, UserDeptOther
-from .models import Department
+from .models import Department, DeptMembership, SubTeam
 
 
 class TeamLeaderInline(admin.TabularInline):
-    model = User
-    fk_name = "dept_main"
+    model = DeptMembership
     verbose_name = "Team Leader"
     verbose_name_plural = "Team Leaders"
-    fields = ("username", "first_name", "last_name", "email", "role")
-    readonly_fields = ("username", "first_name", "last_name", "email", "role")
+    fields = ("user", "role")
+    readonly_fields = ("user", "role")
     extra = 0
     can_delete = False
     show_change_link = True
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(role=DeptMembership.Role.LEADER)
 
     def has_add_permission(self, request, obj=None):
         return False
 
 
 class TeamMemberInline(admin.TabularInline):
-    model = UserDeptOther
+    model = DeptMembership
     verbose_name = "Team Member"
     verbose_name_plural = "Team Members"
-    fields = ("user",)
+    fields = ("user", "role")
     autocomplete_fields = ("user",)
     extra = 1
-    show_change_link = False
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(role=DeptMembership.Role.MEMBER)
+
+    def get_formset(self, request, obj=None, **kwargs):
+        formset = super().get_formset(request, obj, **kwargs)
+        formset.form.base_fields["role"].initial = DeptMembership.Role.MEMBER
+        return formset
+
+
+@admin.register(SubTeam)
+class SubTeamAdmin(admin.ModelAdmin):
+    list_display = ("name", "dept", "slug")
+    list_filter = ("dept",)
+    search_fields = ("name", "portuguese_name", "slug")
+    prepopulated_fields = {"slug": ("name",)}
+    autocomplete_fields = ["dept"]
+    fieldsets = (
+        (None, {"fields": ("slug", "name", "portuguese_name", "dept")}),
+        ("Appearance", {"fields": ("color",)}),
+        ("Description", {"fields": ("description",)}),
+    )
 
 
 @admin.register(Department)

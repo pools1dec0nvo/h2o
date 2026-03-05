@@ -14,15 +14,6 @@ class User(AbstractUser):
     linkedin_url = models.URLField(blank=True)
     phone_number = models.CharField(max_length=30, blank=True)
 
-    dept_main = models.ForeignKey(
-        "core.Department",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="leaders",
-        verbose_name="Main Department",
-    )
-
     @property
     def is_sys(self):
         return self.role == self.Role.SYS
@@ -32,7 +23,10 @@ class User(AbstractUser):
         return self.role == self.Role.COLLAB
 
     def save(self, *args, **kwargs):
-        if self.is_sys:
+        if self.role == self.Role.SYS:
+            self.is_superuser = True
+            self.is_staff = True
+        elif self.role == self.Role.COLLAB:
             self.is_staff = True
         super().save(*args, **kwargs)
 
@@ -46,18 +40,18 @@ class User(AbstractUser):
             return True
         return super().has_module_perms(app_label)
 
+    @property
+    def leader_of(self):
+        from core.models import Department
+        return Department.objects.filter(
+            dept_memberships__user=self,
+            dept_memberships__role="leader",
+        )
 
-class UserDeptOther(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="dept_other_entries",
-    )
-    dept = models.ForeignKey(
-        "core.Department",
-        on_delete=models.CASCADE,
-        related_name="members",
-    )
-
-    class Meta:
-        unique_together = ("user", "dept")
+    @property
+    def member_of(self):
+        from core.models import Department
+        return Department.objects.filter(
+            dept_memberships__user=self,
+            dept_memberships__role="member",
+        )

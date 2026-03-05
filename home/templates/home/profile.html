@@ -168,8 +168,20 @@
   </button>
 </form>
 
-<!-- Other departments form -->
-<p class="profile-section-title">Other departments</p>
+<!-- Leader departments (read-only) -->
+{% with leader_depts=request.user.leader_of.all %}
+{% if leader_depts %}
+<p class="profile-section-title">Team Leader in</p>
+<div class="profile-leader-depts">
+  {% for dept in leader_depts %}
+    <span class="dept-pill" style="--dept-color: {{ dept.color }};">{{ dept.full_name }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<!-- Member departments form -->
+<p class="profile-section-title">Member departments</p>
 
 {% if dept_saved %}
 <div class="auth-card__success">Departments updated.</div>
@@ -178,7 +190,7 @@
 <form method="post" class="auth-form">
   {% csrf_token %}
   <div class="auth-form__field">
-    <label>Select your secondary departments</label>
+    <label>Select your member departments</label>
     {{ dept_form.departments }}
     {% for error in dept_form.departments.errors %}
       <span class="auth-form__field-error">{{ error }}</span>

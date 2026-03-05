@@ -52,13 +52,13 @@ class EditProfileForm(forms.ModelForm):
         fields = ("first_name", "last_name", "email", "linkedin_url", "phone_number", "profile_photo", "curriculum")
 
 
-class DeptOtherForm(forms.Form):
-    """Lets a user pick their secondary (non-main) departments."""
+class MemberDeptForm(forms.Form):
+    """Lets a user pick their member departments."""
     departments = forms.ModelMultipleChoiceField(
         queryset=Department.objects.all(),
         required=False,
         widget=forms.CheckboxSelectMultiple(),
-        label="Other departments",
+        label="Member departments",
     )
 
 

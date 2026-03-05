@@ -505,18 +505,18 @@
         {% endif %}
         <div class="team-card__right">
           <p class="team-card__name">{{ member.get_full_name }}</p>
-          {% if member.dept_main %}
-            <span class="dept-pill" style="--dept-color: {{ member.dept_main.color }};">{{ member.dept_main.full_name }}</span>
-          {% endif %}
-          {% with others=member.dept_other_entries.all %}
-            {% if others %}
+          {% regroup member.dept_memberships.all by role as role_groups %}
+          {% for group in role_groups %}
+            {% if group.grouper == "leader" %}
+              {% for m in group.list %}<span class="dept-pill" style="--dept-color: {{ m.dept.color }};">{{ m.dept.full_name }}</span>{% endfor %}
+            {% endif %}
+            {% if group.grouper == "member" %}
               <div class="team-card__also">
                 <span class="team-card__also-label">Also:</span>
-                {% for entry in others %}<span class="team-card__also-dept">{{ entry.dept.full_name }}{% if not forloop.last %},{% endif %}</span>
-                {% endfor %}
+                {% for m in group.list %}<span class="team-card__also-dept">{{ m.dept.full_name }}{% if not forloop.last %},{% endif %}</span>{% endfor %}
               </div>
             {% endif %}
-          {% endwith %}
+          {% endfor %}
           <div class="team-card__links">
             {% if member.email %}
               <a class="team-card__link-icon" href="mailto:{{ member.email }}" title="Email {{ member.get_full_name }}">
