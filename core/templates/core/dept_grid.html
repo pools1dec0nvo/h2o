@@ -1,0 +1,6 @@
+{% for dept in depts_simple %}
+  {% include "core/dept_card.html" with dept=dept %}
+{% endfor %}
+{% for dept in depts_complex %}
+  {% include "core/dept_card.html" with dept=dept %}
+{% endfor %}

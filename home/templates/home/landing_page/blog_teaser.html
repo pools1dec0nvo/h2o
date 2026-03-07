@@ -1,0 +1,28 @@
+<!-- ── Blog teaser ────────────────────────────────────────────── -->
+<section class="section" id="blog-teaser">
+  <div class="section__inner">
+    <h2 class="section__title section__title">Latest from our <a href="/blog/" class="blog-teaser__title-link">blog</a></h2>
+    <div class="post-grid">
+      {% for post in recent_posts %}
+      <article class="post-card">
+        <div class="post-card__body">
+          <div class="post-card__date">
+            {{ post.created_at|date:"M j, Y" }}
+            {% for dept_entry in post.dept_entries.all %}·<span class="dept-pill" style="--dept-color: {{ dept_entry.dept.color }};">{{ dept_entry.dept.short_name }}</span>{% endfor %}
+          </div>
+          <h3><a href="{% url 'blog:post_list' %}#post-{{ post.pk }}">{{ post.title }}</a></h3>
+          <p>{{ post.content|truncatewords:20 }}</p>
+          <a href="{% url 'blog:post_list' %}#post-{{ post.pk }}" class="post-card__link">Continue reading ↗</a>
+        </div>
+      </article>
+      {% empty %}
+      <p class="section__lead" style="grid-column: 1 / -1;">No posts yet — check back soon.</p>
+      {% endfor %}
+    </div>
+    {% if recent_posts %}
+    <div class="section__cta">
+      <a href="/blog/" class="btn btn--outline-dark">View all posts</a>
+    </div>
+    {% endif %}
+  </div>
+</section>

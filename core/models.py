@@ -9,6 +9,7 @@ class Department(models.Model):
     portuguese_name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     color = models.CharField(max_length=20, default="#64748b")
+    icon_svg = models.TextField(blank=True)
     is_general = models.BooleanField(
         default=False,
         help_text="If set, this dept cannot be combined with others on a post.",

@@ -1,0 +1,27 @@
+<!-- ── Who? ──────────────────────────────────────────────────── -->
+<section class="section" id="who">
+  <div class="section__inner">
+    <span class="section__eyebrow">Who are we?</span>
+    <h2 class="section__title section__title">Team leaders</h2>
+    <p class="section__lead">Our team combines electrical engineering and telecommunications, computer science and distributed systems, geographic analysis and resource management for a multidisciplinary solution.</p>
+    <div class="team-grid">
+      {% for member in team %}
+        {% include "core/team_card.html" with member=member %}
+      {% empty %}
+        <p class="section__lead" style="grid-column: 1 / -1;">No team members yet.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Departments -->
+    <div class="dept-toggle-row">
+      <button class="btn btn--outline-dark accordion-btn" id="dept-toggle" aria-expanded="false" aria-controls="dept-grid">
+        About our departments
+        <svg class="dept-accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+    <div class="dept-grid" id="dept-grid" hidden>
+      {% include "core/dept_grid.html" with depts_simple=depts_simple depts_complex=depts_complex %}
+    </div>
+
+  </div>
+</section>

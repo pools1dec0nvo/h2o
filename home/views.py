@@ -19,7 +19,7 @@ def index(request):
     recent_posts = Post.objects.select_related("poster").order_by("-created_at")[:3]
 
     depts = []
-    for dept in Department.objects.all():
+    for dept in Department.objects.prefetch_related("sub_teams").exclude(slug="general"):
         leaders = [
             u for u in team
             if any(
@@ -34,19 +34,30 @@ def index(request):
                 for m in u.dept_memberships.all()
             )
         ]
+        sub_teams = [
+            {"name": st.name, "description": st.description, "color": st.color}
+            for st in dept.sub_teams.all()
+        ]
         depts.append({
             "key": dept.slug,
             "name": dept.full_name,
             "color": dept.color,
             "description": dept.description,
+            "icon_svg": dept.icon_svg,
             "leaders": leaders,
             "members": members,
+            "sub_teams": sub_teams,
         })
+
+    depts_simple = [d for d in depts if len(d["sub_teams"]) <= 1]
+    depts_complex = [d for d in depts if len(d["sub_teams"]) > 1]
 
     return render(request, "home/index.html", {
         "team": team,
         "recent_posts": recent_posts,
         "depts": depts,
+        "depts_simple": depts_simple,
+        "depts_complex": depts_complex,
     })
 
 

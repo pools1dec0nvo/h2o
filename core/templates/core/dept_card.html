@@ -1,0 +1,39 @@
+{% if dept.sub_teams|length > 1 %}
+<div class="dept-card dept-card--full" id="dept-card-{{ dept.key }}" style="border-color: {{ dept.color }}; --dept-color: {{ dept.color }};">
+  <div class="dept-card__header">
+    <span class="dept-card__icon" style="color: {{ dept.color }};">{{ dept.icon_svg|safe }}</span>
+    <span class="dept-pill" style="--dept-color: {{ dept.color }};">{{ dept.name }}</span>
+  </div>
+  <p class="dept-card__desc">{{ dept.description }} <a href="{% url 'blog:post_list' %}?dept={{ dept.key }}">Read their blog posts ↗</a></p>
+  <div class="dept-card__inner-row">
+    {% for st in dept.sub_teams %}
+    <div class="dept-card__inner-box" style="border-color: {{ st.color }}; background: color-mix(in srgb, {{ st.color }} 8%, transparent);">
+      <strong style="color: {{ st.color }};">{{ st.name }}</strong>
+      {{ st.description }}
+    </div>
+    {% endfor %}
+  </div>
+  {% if dept.leaders %}<p class="dept-card__members-bottom"><em>Team leader{% if dept.leaders|length > 1 %}s{% endif %}: {% for u in dept.leaders %}{{ u.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</em></p>{% endif %}
+  {% if dept.members %}<p class="dept-card__members-bottom"><em>Members: {% for u in dept.members %}{{ u.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</em></p>{% endif %}
+</div>
+{% else %}
+<div class="dept-card" id="dept-card-{{ dept.key }}" style="border-color: {{ dept.color }}; --dept-color: {{ dept.color }};">
+  <div class="dept-card__header">
+    <span class="dept-card__icon" style="color: {{ dept.color }};">{{ dept.icon_svg|safe }}</span>
+    <span class="dept-pill" style="--dept-color: {{ dept.color }};">{{ dept.name }}</span>
+  </div>
+  <p class="dept-card__desc">{{ dept.description }} <a href="{% url 'blog:post_list' %}?dept={{ dept.key }}">Read their blog posts ↗</a></p>
+  {% if dept.sub_teams %}
+  <div class="dept-card__inner-row">
+    {% for st in dept.sub_teams %}
+    <div class="dept-card__inner-box" style="border-color: {{ st.color }}; background: color-mix(in srgb, {{ st.color }} 8%, transparent);">
+      <strong style="color: {{ st.color }};">{{ st.name }}</strong>
+      {{ st.description }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if dept.leaders %}<p class="dept-card__meta"><em>Team leader{% if dept.leaders|length > 1 %}s{% endif %}: {% for u in dept.leaders %}{{ u.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</em></p>{% endif %}
+  {% if dept.members %}<p class="dept-card__meta"><em>Members: {% for u in dept.members %}{{ u.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</em></p>{% endif %}
+</div>
+{% endif %}

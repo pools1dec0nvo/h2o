@@ -1,0 +1,169 @@
+{% load static %}
+<section class="section section--alt" id="why">
+  <div class="section__inner">
+    <span class="section__eyebrow">Motivation</span>
+    <h2 class="section__title">Why are cities vulnerable?</h2>
+
+    <p class="section__lead">
+      Urban water is highly dependent on fragile infrastructure—pipelines, treatment plants,
+      power, and communications. When any of these fail (through conflict, natural disaster, drought, or contamination),
+      large populations can lose safe water access quickly, with limited local redundancy.
+    </p>
+
+    <div class="problem-grid">
+
+      <!-- LEFT COLUMN: PROBLEM DRIVERS -->
+      <div class="problem-list">
+
+        <div class="problem-item">
+          <div class="problem-item__top">
+            <span class="problem-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2 5h5l-4 3 1.5 5L12 13l-4.5 3L9 11 5 8h5L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>War, Sabotage &amp; Cyberattacks</h3>
+              <p>
+                Water infrastructure is a strategic target. Damage to treatment plants, pipelines, or remotely altered chemical dosing can disrupt supply and compromise public safety.
+              </p>
+            </div>
+          </div>
+          <img class="problem-item__img" src="{% static 'home/img/moti/war.webp' %}" alt="War and sabotage affecting water infrastructure">
+          <p class="problem-item__caption">Gaza Strip, 2024</p>
+        </div>
+
+        <div class="problem-item">
+          <div class="problem-item__top">
+            <span class="problem-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V10l7-7 7 7v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 17l2-2 2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l1.5 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>Seismic Activity</h3>
+              <p>
+                Earthquakes can collapse underground pipelines and damage key reservoirs, suddenly disrupting access to drinking water.
+              </p>
+            </div>
+          </div>
+          <img class="problem-item__img" src="{% static 'home/img/moti/seismic.jpg' %}" alt="Seismic activity damaging water infrastructure">
+          <p class="problem-item__caption">Nepal, 2015</p>
+        </div>
+
+        <div class="problem-item">
+          <div class="problem-item__top">
+            <span class="problem-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>Extreme Drought</h3>
+              <p>
+                Climate-driven droughts reduce reservoir levels and system pressure, forcing rationing and increasing the likelihood of service interruptions in dense urban areas.
+              </p>
+            </div>
+          </div>
+          <img class="problem-item__img" src="{% static 'home/img/moti/drought.jpg' %}" alt="Extreme drought reducing water availability">
+          <p class="problem-item__caption">California, 2010s</p>
+        </div>
+
+        <div class="problem-item">
+          <div class="problem-item__top">
+            <span class="problem-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>Single-Point Failures &amp; Cross-Border Dependence</h3>
+              <p>
+                Centralized reservoirs and treatment nodes create single points of failure. In parallel, upstream dependencies (e.g., cross-border river basins) can magnify geopolitical and supply risks.
+              </p>
+            </div>
+          </div>
+          <img class="problem-item__img" src="{% static 'home/img/moti/political.jpg' %}" alt="Political and cross-border water dependence">
+          <p class="problem-item__caption">Kakhovka dam, Ukraine, 2022</p>
+        </div>
+
+        <div class="problem-item">
+          <div class="problem-item__top">
+            <span class="problem-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <h3>Pathogenic &amp; Chemical Contamination</h3>
+              <p>
+                Industrial spills and biological outbreaks can render tap water unsafe at scale, creating immediate public health risks and surges in emergency demand.
+              </p>
+            </div>
+          </div>
+          <img class="problem-item__img" src="{% static 'home/img/moti/pathogenic.webp' %}" alt="Pathogenic and chemical contamination of water">
+          <p class="problem-item__caption">Walkerton, Canada, 2000</p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: CASE STUDIES -->
+      <div class="problem-visual">
+
+        <aside class="casebox" aria-label="Case studies">
+          <div class="casebox__header">
+            <h3 class="casebox__title">Some case studies:</h3>
+          </div>
+
+          <ul class="casebox__list">
+            <li class="casebox__item">
+              <div class="casebox__meta">Ukraine · 2022–present</div>
+              <div class="casebox__headline">Water infrastructure targeted during war; populations depended on water trucks.</div>
+              <a class="casebox__link" href="https://www.reuters.com/world/europe/how-water-has-been-weaponised-ukraine-2022-10-22/" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Sarajevo, Bosnia · 1992–1996</div>
+              <div class="casebox__headline">Siege conditions severely constrained essential services, including water access.</div>
+              <a class="casebox__link" href="https://www.reuters.com/news/picture/the-siege-of-sarajevo-idJPRTR30BMM/" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Elk River, West Virginia, USA · 2014</div>
+              <div class="casebox__headline">Chemical spill disrupted safe tap water access for hundreds of thousands.</div>
+              <a class="casebox__link" href="https://www.reuters.com/article/world/west-virginia-chemical-spill-leaves-300000-without-tap-water-idUSDEEA0A040/" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Oldsmar, Florida, USA · 2021</div>
+              <div class="casebox__headline">Cyber intrusion altered treatment parameters, highlighting remote-attack risk.</div>
+              <a class="casebox__link" href="https://www.wired.com/story/oldsmar-florida-water-utility-hack/" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Kobe, Japan · 1995</div>
+              <div class="casebox__headline">Earthquake cut water service to ~1.3M households and worsened firefighting constraints.</div>
+              <a class="casebox__link" href="https://www.reuters.com/article/world/us/factbox-japans-recovery-from-the-1995-kobe-earthquake-idUSTRE72O13G/" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Christchurch, New Zealand · 2011</div>
+              <div class="casebox__headline">Liquefaction and pipeline collapse increased disruption and contamination risk.</div>
+              <a class="casebox__link" href="https://www.theguardian.com/weather/2011/feb/23/new-zealand-christchurch-earthquake-geology" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Cape Town, South Africa · 2017–2018</div>
+              <div class="casebox__headline">"Day Zero" drought crisis brought the city close to shutting off municipal taps.</div>
+              <a class="casebox__link" href="https://www.theguardian.com/cities/2018/feb/03/day-zero-cape-town-turns-off-taps" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Flint, Michigan, USA · 2014–2016</div>
+              <div class="casebox__headline">Lead contamination crisis forced widespread reliance on bottled water.</div>
+              <a class="casebox__link" href="https://apnews.com/article/us-news-health-michigan-rick-snyder-flint-7295d05da09d7d5b1184b0e349545897" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+
+            <li class="casebox__item">
+              <div class="casebox__meta">Walkerton, Canada · 2000</div>
+              <div class="casebox__headline">E. coli outbreak in the municipal network caused severe public health consequences.</div>
+              <a class="casebox__link" href="https://pubmed.ncbi.nlm.nih.gov/12638997/" target="_blank" rel="noreferrer noopener">Read more</a>
+            </li>
+          </ul>
+        </aside>
+
+      </div>
+
+    </div>
+  </div>
+</section>
